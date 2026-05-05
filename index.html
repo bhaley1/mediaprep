@@ -1,0 +1,1480 @@
+<!DOCTYPE html>
+<!-- MediaPrep v2.1 -- build 20260504 -->
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MediaPrep — Multilingual Culture Media Preparation Calculator</title>
+<meta name="description" content="Free multilingual culture media preparation calculator for microbiology labs. Select any standard medium, enter volume, get exact ingredient weights and step-by-step instructions in 22 languages.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-1V3KSK1G4Y"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-1V3KSK1G4Y');</script>
+
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --ink:#1a1814;--ink-2:#4a4640;--ink-3:#8a8480;
+  --paper:#f4f8f4;--paper-2:#eaf2ea;--paper-3:#dceadc;
+  --rule:rgba(26,24,20,0.10);--rule-2:rgba(26,24,20,0.06);
+  --green:#1a6b3c;--green-2:#2d8a52;--green-light:#e8f5ee;
+  --amber:#8b5e00;--amber-light:#fdf3e0;
+  --blue:#1a4d8f;--blue-light:#e8eff8;
+  --red:#8b1a1a;--red-light:#fdf0f0;
+  --radius:4px;--radius-lg:8px;--radius-xl:14px;
+}
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);font-size:16px;line-height:1.7;min-height:100vh;}
+
+/* ── Header ── */
+header{border-bottom:1px solid var(--rule);padding:0 2rem;background:white;position:sticky;top:0;z-index:200;box-shadow:0 1px 8px rgba(0,0,0,0.04);}
+.header-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:56px;}
+.logo{font-family:'Lora',serif;font-size:18px;font-weight:600;letter-spacing:-0.02em;color:var(--ink);text-decoration:none;display:flex;align-items:center;gap:8px;}
+.logo-icon{width:30px;height:30px;background:var(--green);border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:16px;}
+.logo span{color:var(--green);}
+.beta-badge{display:inline-block;font-size:10px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;background:var(--green-light);color:var(--green);border:1px solid rgba(26,107,60,0.3);border-radius:99px;padding:2px 8px;margin-left:8px;vertical-align:middle;}
+.header-by{font-size:12px;color:var(--ink-3);}
+.header-by a{color:var(--ink-3);text-decoration:underline;text-underline-offset:3px;}
+
+/* ── Hero ── */
+.hero{padding:4rem 2rem 3rem;background:linear-gradient(160deg,#f0f8f2 0%,#e8f4f0 50%,#eef8e8 100%);border-bottom:1px solid var(--rule);text-align:center;position:relative;overflow:hidden;}
+.hero::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%231a6b3c' fill-opacity='0.03'%3E%3Ccircle cx='20' cy='20' r='3'/%3E%3C/g%3E%3C/svg%3E");}
+.hero-eyebrow{font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:var(--green);margin-bottom:1.25rem;display:flex;align-items:center;justify-content:center;gap:10px;position:relative;}
+.hero-eyebrow::before,.hero-eyebrow::after{content:'';width:28px;height:1px;background:var(--green);opacity:0.4;}
+.hero h1{font-family:'Lora',serif;font-size:clamp(2rem,4vw,3rem);font-weight:600;line-height:1.15;letter-spacing:-0.025em;margin-bottom:1rem;max-width:680px;margin-left:auto;margin-right:auto;position:relative;}
+.hero-sub{font-size:15px;color:var(--ink-2);max-width:520px;margin:0 auto 2rem;font-weight:300;line-height:1.8;position:relative;}
+.hero-features{display:flex;justify-content:center;gap:1rem;flex-wrap:wrap;position:relative;}
+.feature-pill{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:500;color:var(--green);background:white;border:1px solid rgba(26,107,60,0.25);border-radius:99px;padding:5px 14px;}
+
+/* ── Language picker ── */
+.lang-section{padding:2.5rem 2rem;background:white;border-bottom:1px solid var(--rule);}
+.lang-inner{max-width:1000px;margin:0 auto;}
+.lang-prompt{text-align:center;font-size:12px;color:var(--ink-3);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:1.5rem;}
+.lang-grid{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;}
+.lang-btn{display:inline-flex;align-items:center;gap:7px;padding:8px 16px;border-radius:99px;border:1.5px solid var(--rule);background:var(--paper);color:var(--ink-2);font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;cursor:pointer;transition:all 0.15s;white-space:nowrap;}
+.lang-btn:hover{border-color:var(--green);color:var(--green);background:var(--green-light);}
+.lang-btn.selected{background:var(--green);color:white;border-color:var(--green);}
+.lang-dot{width:6px;height:6px;border-radius:50%;background:currentColor;opacity:0.5;flex-shrink:0;}
+
+/* ── App ── */
+#appSection{display:none;max-width:960px;margin:0 auto;padding:2.5rem 2rem 6rem;}
+#appSection.visible{display:block;animation:fadeUp 0.3s ease;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
+
+.selected-bar{display:flex;align-items:center;justify-content:space-between;background:var(--green);color:white;border-radius:var(--radius-lg);padding:12px 20px;margin-bottom:1.5rem;}
+.selected-bar .lang-name{font-size:15px;font-weight:500;}
+.selected-bar .lang-name span{opacity:0.7;font-size:13px;margin-left:8px;}
+.btn-change{font-size:12px;color:rgba(255,255,255,0.8);background:none;border:1px solid rgba(255,255,255,0.4);border-radius:var(--radius);padding:4px 12px;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all 0.15s;}
+.btn-change:hover{color:white;border-color:white;}
+
+/* ── Step cards ── */
+.card{border:1px solid var(--rule);border-radius:var(--radius-xl);background:white;overflow:hidden;margin-bottom:1.5rem;}
+.card-header{padding:1rem 1.5rem;border-bottom:1px solid var(--rule-2);display:flex;align-items:center;gap:10px;}
+.step-num{width:24px;height:24px;border-radius:50%;background:var(--green);color:white;font-size:12px;font-weight:600;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.card-header h2{font-size:14px;font-weight:500;color:var(--ink);}
+.card-header .card-sub{font-size:11px;font-weight:400;color:var(--ink-3);display:block;margin-top:1px;}
+.card-body{padding:1.5rem;}
+
+/* ── Media selector ── */
+.media-category-tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:1.25rem;}
+.cat-tab{font-size:12px;font-weight:500;padding:5px 14px;border-radius:99px;border:1px solid var(--rule);background:var(--paper-2);color:var(--ink-3);cursor:pointer;transition:all 0.12s;}
+.cat-tab.active{background:var(--green);color:white;border-color:var(--green);}
+.media-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:8px;}
+.media-btn{
+  padding:10px 14px;border-radius:var(--radius-lg);
+  border:1.5px solid var(--rule);background:white;
+  text-align:left;cursor:pointer;transition:all 0.12s;
+  font-family:'DM Sans',sans-serif;
+}
+.media-btn:hover{border-color:var(--green);background:var(--green-light);}
+.media-btn.selected{border-color:var(--green);background:var(--green);color:white;}
+.media-btn-name{font-size:13px;font-weight:500;display:block;}
+.media-btn-abbr{font-size:11px;opacity:0.65;display:block;margin-top:1px;}
+
+/* ── Volume input ── */
+.volume-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
+.volume-input{
+  width:160px;padding:10px 14px;
+  border:1.5px solid var(--rule);border-radius:var(--radius-lg);
+  font-family:'DM Sans',sans-serif;font-size:16px;font-weight:500;
+  background:white;color:var(--ink);
+  transition:border-color 0.15s;
+}
+.volume-input:focus{outline:none;border-color:var(--green);}
+.volume-unit{font-size:14px;color:var(--ink-3);font-weight:500;}
+.volume-presets{display:flex;gap:6px;flex-wrap:wrap;}
+.preset-btn{font-size:12px;padding:5px 12px;border-radius:99px;border:1px solid var(--rule);background:var(--paper-2);color:var(--ink-3);cursor:pointer;font-family:'DM Sans',sans-serif;transition:all 0.12s;}
+.preset-btn:hover{border-color:var(--green);color:var(--green);}
+
+/* ── Run button ── */
+.btn-calc{
+  width:100%;padding:14px;background:var(--green);color:white;
+  border:none;border-radius:var(--radius-lg);
+  font-family:'DM Sans',sans-serif;font-size:15px;font-weight:500;
+  cursor:pointer;transition:all 0.15s;margin-top:1rem;
+  display:flex;align-items:center;justify-content:center;gap:8px;
+}
+.btn-calc:hover{background:var(--green-2);}
+.btn-calc:disabled{opacity:0.35;cursor:not-allowed;}
+
+/* ── Results ── */
+.results{display:none;margin-top:1.5rem;}
+.results.visible{display:block;animation:fadeUp 0.3s ease;}
+
+.result-banner{
+  background:var(--green);color:white;
+  border-radius:var(--radius-xl);padding:1.25rem 1.5rem;
+  margin-bottom:1.5rem;
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;
+}
+.result-banner-name{font-family:'Lora',serif;font-size:20px;font-weight:600;}
+.result-banner-meta{font-size:13px;opacity:0.8;}
+.btn-print{font-size:12px;color:white;background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.4);border-radius:var(--radius);padding:6px 14px;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all 0.15s;}
+.btn-print:hover{background:rgba(255,255,255,0.25);}
+
+/* ── Ingredients table ── */
+.result-section{border:1px solid var(--rule);border-radius:var(--radius-xl);background:white;overflow:hidden;margin-bottom:1.25rem;}
+.result-section-header{padding:10px 16px;border-bottom:1px solid var(--rule-2);display:flex;align-items:center;gap:8px;background:var(--paper-2);}
+.result-section-header h3{font-size:12px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:var(--ink-3);}
+.ingredients-table{width:100%;border-collapse:collapse;}
+.ingredients-table th{padding:9px 16px;text-align:left;font-size:11px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:var(--ink-3);border-bottom:1px solid var(--rule-2);background:var(--paper-2);}
+.ingredients-table td{padding:10px 16px;font-size:14px;color:var(--ink-2);border-bottom:1px solid var(--rule-2);}
+.ingredients-table tr:last-child td{border-bottom:none;}
+.ingredients-table tr:hover td{background:var(--paper);}
+.ing-name{font-weight:500;color:var(--ink);}
+.ing-weight{font-weight:600;color:var(--green);font-family:'DM Sans',sans-serif;}
+.ing-conc{font-size:12px;color:var(--ink-3);}
+
+/* ── Steps ── */
+.steps-list{list-style:none;padding:1rem 1.25rem;}
+.step-item{display:flex;gap:12px;padding:10px 0;border-bottom:1px solid var(--rule-2);align-items:flex-start;}
+.step-item:last-child{border-bottom:none;}
+.step-circle{width:24px;height:24px;border-radius:50%;background:var(--green-light);color:var(--green);font-size:12px;font-weight:600;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;}
+.step-text{font-size:14px;color:var(--ink-2);line-height:1.6;}
+
+/* ── Notes/warnings ── */
+.note-box{border-radius:var(--radius-lg);padding:12px 16px;font-size:13px;line-height:1.6;margin-bottom:1rem;display:flex;gap:10px;align-items:flex-start;}
+.note-box.warning{background:var(--amber-light);border:1px solid rgba(139,94,0,0.2);color:var(--amber);}
+.note-box.info{background:var(--blue-light);border:1px solid rgba(26,77,143,0.2);color:var(--blue);}
+.note-box.danger{background:var(--red-light);border:1px solid rgba(139,26,26,0.2);color:var(--red);}
+.note-icon{font-size:16px;flex-shrink:0;margin-top:1px;}
+
+/* ── Storage / pH info card ── */
+.info-row{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px;padding:1rem 1.25rem;}
+.info-item{text-align:center;padding:10px;background:var(--paper-2);border-radius:var(--radius-lg);}
+.info-item-label{font-size:11px;color:var(--ink-3);letter-spacing:0.05em;text-transform:uppercase;margin-bottom:4px;}
+.info-item-value{font-size:15px;font-weight:600;color:var(--ink);}
+
+/* ── Error ── */
+.error-box{display:none;background:var(--red-light);border:1px solid rgba(139,26,26,0.2);border-radius:var(--radius-lg);padding:10px 14px;font-size:13px;color:var(--red);margin-top:1rem;}
+.error-box.visible{display:block;}
+
+/* ── Footer ── */
+footer{border-top:1px solid var(--rule);padding:2rem;text-align:center;font-size:12px;color:var(--ink-3);background:white;}
+footer a{color:var(--ink-3);text-decoration:underline;text-underline-offset:3px;}
+
+@media print{
+  header,footer,.lang-section,.selected-bar,.btn-calc,.btn-change,.btn-print,.card:not(.results-card){display:none!important;}
+  .results{display:block!important;}
+  body{background:white;}
+}
+@media(max-width:600px){
+  .media-grid{grid-template-columns:1fr 1fr;}
+  .volume-row{flex-direction:column;align-items:flex-start;}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <a class="logo" href="#">
+      <div class="logo-icon">🧫</div>
+      Media<span>Prep</span><span class="beta-badge">Beta</span>
+    </a>
+    <span class="header-by">Part of <a href="https://bhaley1.github.io/scivoice/" target="_blank">SciVoice</a> · By <a href="https://github.com/bhaley1" target="_blank">bhaley1</a></span>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-eyebrow">Culture Media Preparation Calculator</div>
+  <h1 id="heroTitle">Your language.<br>Your media. Ready to pour.</h1>
+  <p class="hero-sub" id="heroSub">Select your language, choose a culture medium, enter the volume needed, and get exact ingredient weights with step-by-step preparation instructions.</p>
+  <div class="hero-features">
+    <span class="feature-pill">🧫 30+ media</span>
+    <span class="feature-pill">⚖️ Exact weights</span>
+    <span class="feature-pill">📋 Step-by-step</span>
+    <span class="feature-pill">🌍 22 languages</span>
+    <span class="feature-pill">🖨️ Printable</span>
+  </div>
+</section>
+
+<section class="lang-section">
+  <div class="lang-inner">
+    <div class="lang-prompt" id="langPrompt">SELECT YOUR LANGUAGE · CHOISISSEZ VOTRE LANGUE · SELECCIONE SU IDIOMA</div>
+    <div class="lang-grid" id="langGrid"></div>
+  </div>
+</section>
+
+<div id="appSection">
+  <div class="selected-bar">
+    <div class="lang-name" id="langDisplay">English</div>
+    <button class="btn-change" id="btnChange" onclick="changeLang()">Change language</button>
+  </div>
+
+  <!-- Step 1: Select medium -->
+  <div class="card">
+    <div class="card-header">
+      <div class="step-num">1</div>
+      <h2 id="step1Title">Select a culture medium<span class="card-sub" id="step1Sub">Choose from 30+ standard microbiological media</span></h2>
+    </div>
+    <div class="card-body">
+      <div class="media-category-tabs" id="categoryTabs"></div>
+      <div class="media-grid" id="mediaGrid"></div>
+    </div>
+  </div>
+
+  <!-- Step 2: Volume -->
+  <div class="card">
+    <div class="card-header">
+      <div class="step-num">2</div>
+      <h2 id="step2Title">Enter volume needed<span class="card-sub" id="step2Sub">How much media do you need to prepare?</span></h2>
+    </div>
+    <div class="card-body">
+      <div class="volume-row">
+        <input type="number" class="volume-input" id="volumeInput" value="1000" min="10" max="100000" step="50">
+        <span class="volume-unit">mL</span>
+        <div class="volume-presets" id="volumePresets"></div>
+      </div>
+      <div class="error-box" id="errorBox"></div>
+      <button class="btn-calc" id="btnCalc" onclick="calculate()">
+        <span>🧮</span><span id="btnCalcText">Calculate</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Results -->
+  <div class="results" id="results">
+
+    <div class="result-banner">
+      <div>
+        <div class="result-banner-name" id="resultMediaName"></div>
+        <div class="result-banner-meta" id="resultMeta"></div>
+      </div>
+      <button class="btn-print" onclick="window.print()" id="btnPrint">🖨️ Print</button>
+    </div>
+
+    <!-- Notes/warnings -->
+    <div id="notesArea"></div>
+
+    <!-- Ingredients -->
+    <div class="result-section">
+      <div class="result-section-header">
+        <h3 id="ingrHeading">Ingredients</h3>
+      </div>
+      <table class="ingredients-table">
+        <thead>
+          <tr>
+            <th id="thIngredient">Ingredient</th>
+            <th id="thAmount">Amount</th>
+            <th id="thConc">Per Liter</th>
+            <th id="thNotes">Notes</th>
+          </tr>
+        </thead>
+        <tbody id="ingredientsTbody"></tbody>
+      </table>
+    </div>
+
+    <!-- Media properties -->
+    <div class="result-section">
+      <div class="result-section-header"><h3 id="propertiesHeading">Media Properties</h3></div>
+      <div class="info-row" id="propertiesRow"></div>
+    </div>
+
+    <!-- Preparation steps -->
+    <div class="result-section">
+      <div class="result-section-header"><h3 id="stepsHeading">Preparation Steps</h3></div>
+      <ul class="steps-list" id="stepsList"></ul>
+    </div>
+
+  </div>
+</div>
+
+<footer>
+  <p>MediaPrep — Free multilingual culture media preparation calculator.
+  Part of <a href="https://bhaley1.github.io/scivoice/" target="_blank">SciVoice</a> ·
+  Built by <a href="https://github.com/bhaley1" target="_blank">bhaley1</a> ·
+  <a href="https://github.com/bhaley1/scivoice/issues" target="_blank" id="footerFeedback">Feedback</a>
+  </p>
+</footer>
+
+<script>
+// ── Languages ─────────────────────────────────────────────────────────────
+const LANGS=[
+  {code:'en',native:'English',dir:'ltr'},{code:'fr',native:'Français',dir:'ltr'},
+  {code:'es',native:'Español',dir:'ltr'},{code:'pt',native:'Português',dir:'ltr'},
+  {code:'it',native:'Italiano',dir:'ltr'},{code:'ar',native:'العربية',dir:'rtl'},
+  {code:'zh',native:'中文',dir:'ltr'},{code:'sw',native:'Kiswahili',dir:'ltr'},
+  {code:'am',native:'አማርኛ',dir:'ltr'},{code:'hi',native:'हिन्दी',dir:'ltr'},
+  {code:'bn',native:'বাংলা',dir:'ltr'},{code:'id',native:'Bahasa Indonesia',dir:'ltr'},
+  {code:'uk',native:'Українська',dir:'ltr'},{code:'ha',native:'Hausa',dir:'ltr'},
+  {code:'yo',native:'Yorùbá',dir:'ltr'},{code:'ln',native:'Lingála',dir:'ltr'},
+  {code:'mg',native:'Malagasy',dir:'ltr'},{code:'ne',native:'नेपाली',dir:'ltr'},
+  {code:'tl',native:'Tagalog',dir:'ltr'},{code:'rw',native:'Kinyarwanda',dir:'ltr'},
+  {code:'rn',native:'Ikirundi',dir:'ltr'},{code:'ny',native:'Chichewa',dir:'ltr'},
+];
+
+// ── Media database ────────────────────────────────────────────────────────
+// Each medium: id, name, abbr, category, ingredients [{name, gPerL, note}],
+// pH, sterilization, storage, selectivity, uses, steps[], warnings[]
+const MEDIA = [
+  // ── GENERAL PURPOSE ──
+  {id:'lb',name:'Luria-Bertani Broth',abbr:'LB Broth',cat:'general',
+   ingredients:[{n:'Tryptone',gL:10,note:'carbon/nitrogen source'},{n:'Yeast Extract',gL:5,note:'vitamins & cofactors'},{n:'Sodium Chloride (NaCl)',gL:10,note:'osmotic balance'}],
+   pH:'7.0 ± 0.2',sterilization:'Autoclave 121°C / 15 min',storage:'RT or 4°C up to 1 month',selectivity:'Non-selective',uses:'General E. coli and bacterial culture',
+   steps:['Weigh all ingredients accurately using a calibrated balance.','Add ingredients to approximately 90% of the final volume of distilled water.','Stir until completely dissolved.','Adjust pH to 7.0 ± 0.2 using 1N NaOH or 1N HCl.','Bring to final volume with distilled water.','Dispense into appropriate vessels.','Autoclave at 121°C for 15 minutes.','Allow to cool to room temperature before use. Store at 4°C.'],
+   warnings:[]},
+  {id:'la',name:'Luria-Bertani Agar',abbr:'LB Agar',cat:'general',
+   ingredients:[{n:'Tryptone',gL:10,note:'carbon/nitrogen source'},{n:'Yeast Extract',gL:5,note:'vitamins & cofactors'},{n:'Sodium Chloride (NaCl)',gL:10,note:'osmotic balance'},{n:'Agar',gL:15,note:'solidifying agent'}],
+   pH:'7.0 ± 0.2',sterilization:'Autoclave 121°C / 15 min',storage:'4°C up to 4 weeks (plates)',selectivity:'Non-selective',uses:'General bacterial isolation and culture',
+   steps:['Weigh all ingredients accurately.','Add to 90% of final volume of distilled water.','Heat with stirring until agar dissolves completely.','Adjust pH to 7.0 ± 0.2.','Bring to final volume.','Autoclave at 121°C for 15 minutes.','Cool to 50–55°C before adding supplements if required.','Pour approximately 20 mL per 90mm Petri dish. Allow to solidify. Store inverted at 4°C.'],
+   warnings:[]},
+  {id:'tsa',name:'Tryptic Soy Agar',abbr:'TSA',cat:'general',
+   ingredients:[{n:'Tryptone',gL:15,note:'nitrogen source'},{n:'Soy Peptone',gL:5,note:'nitrogen/carbohydrate source'},{n:'Sodium Chloride (NaCl)',gL:5,note:'osmotic balance'},{n:'Agar',gL:15,note:'solidifying agent'}],
+   pH:'7.3 ± 0.2',sterilization:'Autoclave 121°C / 15 min',storage:'4°C up to 4 weeks',selectivity:'Non-selective',uses:'General-purpose isolation for aerobes, anaerobes, and fastidious organisms',
+   steps:['Weigh all ingredients accurately.','Add to 90% of final volume distilled water with stirring.','Heat to dissolve agar completely.','Adjust pH to 7.3 ± 0.2.','Bring to final volume.','Autoclave at 121°C for 15 min.','Cool to 50–55°C.','Pour 20 mL per plate. Solidify at RT. Store inverted at 4°C.'],
+   warnings:[]},
+  {id:'tsb',name:'Tryptic Soy Broth',abbr:'TSB',cat:'general',
+   ingredients:[{n:'Tryptone',gL:17,note:'nitrogen source'},{n:'Soy Peptone',gL:3,note:'nitrogen source'},{n:'Sodium Chloride (NaCl)',gL:5,note:'osmotic balance'},{n:'Dipotassium Phosphate (K₂HPO₄)',gL:2.5,note:'buffer'},{n:'Dextrose (Glucose)',gL:2.5,note:'energy source'}],
+   pH:'7.3 ± 0.2',sterilization:'Autoclave 121°C / 15 min',storage:'RT or 4°C up to 1 month',selectivity:'Non-selective',uses:'General broth enrichment, blood culture, sterility testing',
+   steps:['Weigh all ingredients.','Dissolve in 90% of final volume distilled water.','Adjust pH to 7.3 ± 0.2.','Bring to final volume.','Dispense into tubes or flasks.','Autoclave at 121°C for 15 minutes.','Cool before use.'],
+   warnings:[]},
+  {id:'na',name:'Nutrient Agar',abbr:'NA',cat:'general',
+   ingredients:[{n:'Beef Extract',gL:3,note:'vitamins & organic nitrogen'},{n:'Peptone',gL:5,note:'nitrogen source'},{n:'Agar',gL:15,note:'solidifying agent'}],
+   pH:'6.8 ± 0.2',sterilization:'Autoclave 121°C / 15 min',storage:'4°C up to 4 weeks',selectivity:'Non-selective',uses:'Routine cultivation and maintenance of non-fastidious organisms',
+   steps:['Weigh all ingredients.','Dissolve in 90% of final volume distilled water with heat.','Adjust pH to 6.8 ± 0.2.','Bring to final volume.','Autoclave at 121°C for 15 min.','Cool to 50–55°C and pour plates. Solidify and store at 4°C.'],
+   warnings:[]},
+  {id:'nb',name:'Nutrient Broth',abbr:'NB',cat:'general',
+   ingredients:[{n:'Beef Extract',gL:3,note:'vitamins & organic nitrogen'},{n:'Peptone',gL:5,note:'nitrogen source'}],
+   pH:'6.8 ± 0.2',sterilization:'Autoclave 121°C / 15 min',storage:'RT or 4°C',selectivity:'Non-selective',uses:'General broth culture',
+   steps:['Weigh and dissolve ingredients in 90% final volume distilled water.','Adjust pH to 6.8 ± 0.2.','Bring to final volume.','Autoclave at 121°C for 15 min.','Cool and use.'],
+   warnings:[]},
+  {id:'bhi',name:'Brain Heart Infusion Broth',abbr:'BHI Broth',cat:'general',
+   ingredients:[{n:'Calf Brain Infusion Solids',gL:12.5,note:'rich growth factors'},{n:'Beef Heart Infusion Solids',gL:5,note:'rich growth factors'},{n:'Proteose Peptone',gL:10,note:'nitrogen source'},{n:'Dextrose (Glucose)',gL:2,note:'energy source'},{n:'Sodium Chloride (NaCl)',gL:5,note:'osmotic balance'},{n:'Disodium Phosphate (Na₂HPO₄)',gL:2.5,note:'buffer'}],
+   pH:'7.4 ± 0.2',sterilization:'Autoclave 121°C / 15 min',storage:'4°C up to 1 month',selectivity:'Non-selective (enriched)',uses:'Fastidious organisms, blood culture, sterility testing',
+   steps:['Weigh all ingredients and dissolve in 90% volume distilled water.','Adjust pH to 7.4 ± 0.2.','Bring to final volume.','Autoclave at 121°C for 15 min.','Cool before use.'],
+   warnings:[{type:'warning',text:'BHI is highly enriched — use biosafety cabinet when working with potential pathogens.'}]},
+
+  // ── SELECTIVE / DIFFERENTIAL ──
+  {id:'mac',name:'MacConkey Agar',abbr:'MacConkey',cat:'selective',
+   ingredients:[{n:'Peptone',gL:17,note:'nitrogen source'},{n:'Proteose Peptone',gL:3,note:'nitrogen source'},{n:'Lactose',gL:10,note:'fermentable sugar'},{n:'Bile Salts Mixture',gL:1.5,note:'selective inhibitor'},{n:'Sodium Chloride (NaCl)',gL:5,note:'osmotic balance'},{n:'Crystal Violet',gL:0.001,note:'selective inhibitor'},{n:'Neutral Red',gL:0.03,note:'pH indicator'},{n:'Agar',gL:13.5,note:'solidifying agent'}],
+   pH:'7.1 ± 0.2',sterilization:'Autoclave 121°C / 15 min',storage:'4°C up to 4 weeks',selectivity:'Selective & differential for Gram-negative enteric bacteria',uses:'Isolation and differentiation of Gram-negative enteric bacteria; lactose fermenters (E. coli) appear pink/red, non-fermenters (Salmonella, Shigella) appear colorless',
+   steps:['Weigh all ingredients.','Add to 90% of final volume distilled water.','Heat with stirring — DO NOT overheat as this degrades bile salts and indicators.','Adjust pH to 7.1 ± 0.2.','Bring to final volume.','Autoclave at 121°C for 15 min.','Cool to 50–55°C. Swirl gently to mix. DO NOT overheat after autoclaving.','Pour 20 mL per plate. Allow to solidify. Store inverted at 4°C.'],
+   warnings:[{type:'warning',text:'Do NOT overheat MacConkey agar — excess heat degrades bile salts and crystal violet, reducing selectivity. Cool to 50–55°C before pouring.'},{type:'info',text:'Lactose fermenters (E. coli) produce pink/red colonies. Non-fermenters (Salmonella, Shigella) produce colorless/pale colonies.'}]},
+  {id:'hea',name:'Hektoen Enteric Agar',abbr:'HEA',cat:'selective',
+   ingredients:[{n:'Yeast Extract',gL:3,note:'growth factors'},{n:'Peptone',gL:12,note:'nitrogen source'},{n:'Lactose',gL:12,note:'fermentable sugar'},{n:'Sucrose',gL:12,note:'fermentable sugar'},{n:'Salicin',gL:2,note:'fermentable sugar'},{n:'Bile Salts',gL:9,note:'selective inhibitor'},{n:'Sodium Chloride (NaCl)',gL:5,note:'osmotic balance'},{n:'Sodium Thiosulphate (Na₂S₂O₃)',gL:5,note:'H₂S indicator precursor'},{n:'Ferric Ammonium Citrate',gL:1.5,note:'H₂S indicator'},{n:'Acid Fuchsin',gL:0.1,note:'indicator'},{n:'Bromothymol Blue',gL:0.065,note:'pH indicator'},{n:'Agar',gL:13.5,note:'solidifying agent'}],
+   pH:'7.5 ± 0.2',sterilization:'Do NOT autoclave — bring to boil with stirring',storage:'4°C up to 2 weeks',selectivity:'Selective & differential for Salmonella and Shigella',uses:'Primary isolation of Salmonella (blue-green colonies with black center) and Shigella (green colonies, no black center)',
+   steps:['Weigh all ingredients.','Add to 90% of final volume distilled water.','Heat with constant stirring until medium just begins to boil — DO NOT AUTOCLAVE.','Remove from heat immediately when boiling begins.','DO NOT adjust pH — disrupts indicator system.','Bring to final volume with pre-warmed distilled water.','Cool to 50–55°C.','Pour 20 mL per plate. Allow to solidify at room temperature. Store inverted at 4°C protected from light.'],
+   warnings:[{type:'danger',text:'DO NOT AUTOCLAVE HEA — autoclaving destroys the indicator system. Bring to a boil only.'},{type:'info',text:'Salmonella: blue-green colonies with black H₂S center. Shigella: green colonies, no black center. E. coli: salmon/orange colonies.'}]},
+  {id:'xld',name:'Xylose Lysine Deoxycholate Agar',abbr:'XLD',cat:'selective',
+   ingredients:[{n:'Xylose',gL:3.75,note:'fermentable sugar'},{n:'L-Lysine HCl',gL:5,note:'decarboxylation substrate'},{n:'Lactose',gL:7.5,note:'fermentable sugar'},{n:'Sucrose',gL:7.5,note:'fermentable sugar'},{n:'Sodium Chloride (NaCl)',gL:5,note:'osmotic balance'},{n:'Yeast Extract',gL:3,note:'growth factors'},{n:'Phenol Red',gL:0.08,note:'pH indicator'},{n:'Sodium Deoxycholate',gL:2.5,note:'selective inhibitor'},{n:'Sodium Thiosulphate (Na₂S₂O₃)',gL:6.8,note:'H₂S precursor'},{n:'Ferric Ammonium Citrate',gL:0.8,note:'H₂S indicator'},{n:'Agar',gL:13.5,note:'solidifying agent'}],
+   pH:'7.4 ± 0.2',sterilization:'Do NOT autoclave — bring to boil with stirring',storage:'4°C up to 2 weeks',selectivity:'Selective & differential for Salmonella and Shigella',uses:'Isolation of Salmonella (red colonies with black center) and Shigella (red colonies, no black)',
+   steps:['Weigh all ingredients.','Add to 90% of final volume distilled water.','Heat with stirring until just boiling — DO NOT AUTOCLAVE.','DO NOT adjust pH.','Cool to 50°C.','Pour plates immediately. Allow to solidify at RT. Store at 4°C protected from light.'],
+   warnings:[{type:'danger',text:'DO NOT AUTOCLAVE XLD — heating above boiling destroys indicator system.'},{type:'info',text:'Salmonella: red/pink colonies with black H₂S center. Shigella: red/pink colonies, no black center. Coliforms: yellow colonies.'}]},
+  {id:'bsa',name:'Bismuth Sulphite Agar',abbr:'BSA',cat:'selective',
+   ingredients:[{n:'Beef Extract',gL:5,note:'growth factors'},{n:'Peptone',gL:10,note:'nitrogen source'},{n:'Dextrose (Glucose)',gL:5,note:'energy source'},{n:'Disodium Phosphate (Na₂HPO₄)',gL:4,note:'buffer'},{n:'Ferrous Sulphate (FeSO₄)',gL:0.3,note:'H₂S indicator'},{n:'Bismuth Sulphite Indicator',gL:8,note:'selective agent'},{n:'Brilliant Green',gL:0.025,note:'selective inhibitor'},{n:'Agar',gL:20,note:'solidifying agent'}],
+   pH:'7.7 ± 0.2',sterilization:'Do NOT autoclave — bring to boil',storage:'4°C up to 48 hours (use fresh)',selectivity:'Highly selective for Salmonella Typhi',uses:'Primary isolation of Salmonella Typhi (black metallic sheen colonies)',
+   steps:['Weigh all ingredients.','Heat with stirring in 90% final volume distilled water until dissolved — DO NOT AUTOCLAVE.','Cool to 50°C. Pour plates and allow to solidify. Use within 48 hours — this medium deteriorates rapidly.'],
+   warnings:[{type:'danger',text:'DO NOT AUTOCLAVE BSA. Medium is only stable for 48 hours after preparation.'},{type:'warning',text:'Store prepared plates protected from light. Use within 48 hours of preparation.'}]},
+  {id:'cba',name:'Columbia Blood Agar',abbr:'Blood Agar',cat:'selective',
+   ingredients:[{n:'Columbia Agar Base (Special Peptone)',gL:23,note:'nitrogen source'},{n:'Starch',gL:1,note:'detoxifier'},{n:'Sodium Chloride (NaCl)',gL:5,note:'osmotic balance'},{n:'Agar',gL:13.5,note:'solidifying agent'},{n:'Defibrinated Blood (sheep or horse)',gL:50,note:'added post-autoclaving at 50°C — 5% v/v'}],
+   pH:'7.3 ± 0.2',sterilization:'Autoclave base 121°C / 15 min; add blood aseptically at 50°C',storage:'4°C up to 4 weeks',selectivity:'Non-selective (enriched); differential for haemolysis',uses:'Cultivation of fastidious organisms; detection of haemolysis (alpha, beta, gamma)',
+   steps:['Prepare Columbia Agar Base: weigh peptone, starch, NaCl, agar. Dissolve in 90% distilled water with heat.','Adjust pH to 7.3 ± 0.2.','Bring to final volume.','Autoclave at 121°C for 15 min.','Cool to exactly 50°C in a water bath — temperature is critical.','Add sterile defibrinated blood (5% v/v) aseptically. Gently invert 5× to mix — do not create bubbles.','Pour 20 mL per plate. Allow to solidify at RT. Store inverted at 4°C.'],
+   warnings:[{type:'danger',text:'Add blood only when agar has cooled to exactly 50°C — higher temperatures lyse erythrocytes (producing chocolate agar), lower temperatures cause agar to solidify prematurely.'},{type:'warning',text:'Use strict aseptic technique when adding blood. All blood products should be verified as pathogen-free.'}]},
+  {id:'choc',name:'Chocolate Agar',abbr:'Chocolate Agar',cat:'selective',
+   ingredients:[{n:'Columbia Agar Base / GC Agar Base',gL:36,note:'rich base'},{n:'Hemoglobin Solution (2%)',gL:500,note:'500mL added post-autoclave'},{n:'Supplement B or IsoVitaleX (1 vial)',gL:1,note:'growth supplement, added after cooling'}],
+   pH:'7.3 ± 0.2',sterilization:'Autoclave base and haemoglobin separately at 121°C / 15 min',storage:'4°C up to 4 weeks',selectivity:'Non-selective (enriched)',uses:'Isolation of fastidious organisms: Haemophilus, Neisseria, Moraxella',
+   steps:['Prepare agar base and autoclave at 121°C / 15 min.','Prepare 2% haemoglobin solution separately and autoclave.','Cool both to 70–80°C.','Mix equal volumes of agar base and haemoglobin at 70–80°C — this "chocolatizes" the blood to release growth factors. The medium turns brown.','Cool to 50°C.','Add growth supplement aseptically.','Pour plates. Solidify. Store at 4°C.'],
+   warnings:[{type:'info',text:'The "chocolatization" step (heating at 70–80°C) releases NAD (V factor) and hematin (X factor) required by Haemophilus influenzae.'},{type:'warning',text:'Do not heat above 80°C after mixing — this degrades growth factors.'}]},
+  {id:'ssa',name:'Salmonella-Shigella Agar',abbr:'SS Agar',cat:'selective',
+   ingredients:[{n:'Beef Extract',gL:5,note:'growth factors'},{n:'Peptone',gL:5,note:'nitrogen source'},{n:'Lactose',gL:10,note:'fermentable sugar'},{n:'Bile Salts Mixture',gL:8.5,note:'selective inhibitor'},{n:'Sodium Citrate',gL:8.5,note:'selective inhibitor'},{n:'Sodium Thiosulphate (Na₂S₂O₃)',gL:8.5,note:'H₂S precursor'},{n:'Ferric Citrate',gL:1,note:'H₂S indicator'},{n:'Neutral Red',gL:0.025,note:'pH indicator'},{n:'Brilliant Green',gL:0.00033,note:'selective inhibitor'},{n:'Agar',gL:13.5,note:'solidifying agent'}],
+   pH:'7.0 ± 0.2',sterilization:'Do NOT autoclave — bring to boil',storage:'4°C up to 2 weeks',selectivity:'Highly selective for Salmonella and Shigella; inhibits coliforms',uses:'Primary isolation of Salmonella (colorless with black center) and Shigella (colorless, no black)',
+   steps:['Weigh all ingredients.','Add to 90% distilled water.','Heat with stirring until just boiling — DO NOT AUTOCLAVE.','DO NOT adjust pH.','Cool to 50°C. Pour plates. Solidify at RT. Store at 4°C.'],
+   warnings:[{type:'danger',text:'DO NOT AUTOCLAVE SS Agar.'},{type:'info',text:'Salmonella: colorless/translucent with black H₂S center. Shigella: colorless. E. coli: red/pink, inhibited.'}]},
+  {id:'saba',name:'Sabouraud Dextrose Agar',abbr:'SDA / Sabouraud',cat:'selective',
+   ingredients:[{n:'Dextrose (Glucose)',gL:40,note:'energy source for fungi'},{n:'Peptone (Mycological)',gL:10,note:'nitrogen source'},{n:'Agar',gL:15,note:'solidifying agent'}],
+   pH:'5.6 ± 0.2',sterilization:'Autoclave 121°C / 15 min',storage:'4°C up to 4 weeks',selectivity:'Selective for fungi (low pH inhibits bacteria)',uses:'Isolation and cultivation of yeasts and moulds',
+   steps:['Weigh all ingredients.','Dissolve in 90% distilled water with heat.','Adjust pH to 5.6 ± 0.2.','Bring to final volume.','Autoclave at 121°C for 15 min.','Cool to 50°C.','Pour plates or dispense into tubes. Solidify. Store at RT or 4°C.'],
+   warnings:[{type:'info',text:'Low pH (5.6) is intentional — it inhibits most bacteria while permitting fungal growth. Do not adjust pH above 6.0.'},{type:'warning',text:'Chloramphenicol (0.05 g/L) or gentamicin may be added aseptically after autoclaving to further suppress bacteria.'}]},
+
+  // ── ENTERIC ENRICHMENT ──
+  {id:'seln',name:'Selenite Cystine Broth',abbr:'Selenite Broth',cat:'enrichment',
+   ingredients:[{n:'Tryptone',gL:5,note:'nitrogen source'},{n:'Lactose',gL:4,note:'carbohydrate'},{n:'Sodium Biselenite (NaHSeO₃)',gL:4,note:'selective inhibitor'},{n:'Disodium Phosphate (Na₂HPO₄)',gL:10,note:'buffer'},{n:'L-Cystine',gL:0.01,note:'reducing agent'}],
+   pH:'7.0 ± 0.2',sterilization:'Do NOT autoclave — dissolve with minimal heating (< 50°C)',storage:'4°C up to 2 weeks',selectivity:'Selective enrichment for Salmonella; inhibits coliforms',uses:'Pre-enrichment broth for Salmonella isolation from food, water, and feces',
+   steps:['Weigh all ingredients.','Add to 90% final volume distilled water.','Heat gently with stirring — DO NOT EXCEED 50°C and DO NOT AUTOCLAVE. Selenite is reduced to toxic selenium by autoclaving.','Adjust pH to 7.0 ± 0.2.','Bring to final volume.','Dispense into tubes. Do not sterilize further.','Inoculate and incubate at 35–37°C for 12–18 hours. Subculture to selective agar.'],
+   warnings:[{type:'danger',text:'DO NOT AUTOCLAVE. Autoclaving converts selenite to toxic elemental selenium, destroying selectivity and creating hazardous red precipitate.'},{type:'warning',text:'Sodium biselenite is toxic — handle with care, wear gloves. Dispose of waste properly per local hazardous waste regulations.'}]},
+  {id:'tet',name:'Tetrathionate Broth',abbr:'Tetrathionate',cat:'enrichment',
+   ingredients:[{n:'Proteose Peptone',gL:5,note:'nitrogen source'},{n:'Ox Bile (Dried)',gL:1,note:'selective agent'},{n:'Calcium Carbonate (CaCO₃)',gL:10,note:'buffer'},{n:'Sodium Thiosulphate (Na₂S₂O₃)',gL:30,note:'tetrathionate precursor'},{n:'Iodine Solution (2 mL/100mL, added just before use)',gL:2,note:'oxidizes thiosulphate to tetrathionate'}],
+   pH:'8.4 ± 0.2',sterilization:'Autoclave base 121°C / 15 min; add iodine after cooling',storage:'Base: 4°C up to 3 months. Add iodine fresh before each use.',selectivity:'Selective enrichment for Salmonella and Shigella',uses:'Enrichment broth for Salmonella from food and environmental samples',
+   steps:['Weigh base ingredients (peptone, ox bile, CaCO₃, thiosulphate).','Dissolve in 90% distilled water.','Bring to final volume.','Autoclave base at 121°C for 15 min.','Cool to room temperature.','Just before inoculation, add 2 mL of Lugol\'s iodine solution per 100 mL of base.','Inoculate and incubate at 37°C for 24–48 hours.'],
+   warnings:[{type:'warning',text:'Add iodine solution immediately before use — iodine activity diminishes rapidly.'},{type:'info',text:'The tetrathionate generated in situ inhibits coliforms while allowing Salmonella to grow.'}]},
+  {id:'gn',name:'Gram-Negative (GN) Broth',abbr:'GN Broth',cat:'enrichment',
+   ingredients:[{n:'Tryptone',gL:20,note:'nitrogen source'},{n:'Dextrose (Glucose)',gL:1,note:'energy source'},{n:'D-Mannitol',gL:2,note:'energy source'},{n:'Sodium Citrate',gL:5,note:'inhibitor for Gram-positive'},{n:'Sodium Deoxycholate',gL:0.5,note:'inhibitor for Gram-positive'},{n:'Dipotassium Phosphate (K₂HPO₄)',gL:4,note:'buffer'},{n:'Monopotassium Phosphate (KH₂PO₄)',gL:1.5,note:'buffer'},{n:'Sodium Chloride (NaCl)',gL:5,note:'osmotic balance'}],
+   pH:'7.0 ± 0.2',sterilization:'Autoclave 121°C / 15 min',storage:'4°C up to 1 month',selectivity:'Selective enrichment for Gram-negative enteric bacteria',uses:'Early enrichment broth for Salmonella and Shigella from fecal samples (use within 4–6 hours of incubation)',
+   steps:['Weigh all ingredients.','Dissolve in 90% distilled water.','Adjust pH to 7.0 ± 0.2.','Bring to final volume.','Dispense into tubes.','Autoclave at 121°C for 15 min.','Inoculate and incubate at 37°C for 4–6 hours only — prolonged incubation allows coliforms to overgrow Salmonella.'],
+   warnings:[{type:'warning',text:'GN broth is an early enrichment medium — incubate for 4–6 hours only. Longer incubation allows competitive organisms to overgrow Salmonella and Shigella.'}]},
+  {id:'bpw',name:'Buffered Peptone Water',abbr:'BPW',cat:'enrichment',
+   ingredients:[{n:'Peptone',gL:10,note:'nitrogen source'},{n:'Sodium Chloride (NaCl)',gL:5,note:'osmotic balance'},{n:'Disodium Phosphate (Na₂HPO₄·12H₂O)',gL:9,note:'buffer'},{n:'Monopotassium Phosphate (KH₂PO₄)',gL:1.5,note:'buffer'}],
+   pH:'7.0 ± 0.2',sterilization:'Autoclave 121°C / 15 min',storage:'RT up to 3 months',selectivity:'Non-selective (pre-enrichment)',uses:'Pre-enrichment of food and environmental samples for Salmonella (ISO 6579)',
+   steps:['Weigh all ingredients.','Dissolve in 90% of final volume distilled water.','Adjust pH to 7.0 ± 0.2.','Bring to final volume.','Dispense and autoclave at 121°C for 15 min.','Cool before use. Standard ratio: 25g sample in 225 mL BPW.'],
+   warnings:[{type:'info',text:'BPW is the standard ISO 6579 pre-enrichment medium for Salmonella. Use 1:10 dilution (25g sample in 225 mL BPW). Incubate at 37°C for 18 hours before transfer to selective enrichment.'}]},
+
+  // ── SPECIALIZED ──
+  {id:'emba',name:'Eosin Methylene Blue Agar',abbr:'EMB Agar',cat:'specialized',
+   ingredients:[{n:'Peptone',gL:10,note:'nitrogen source'},{n:'Lactose',gL:5,note:'fermentable sugar'},{n:'Sucrose',gL:5,note:'fermentable sugar'},{n:'Dipotassium Phosphate (K₂HPO₄)',gL:2,note:'buffer'},{n:'Eosin Y',gL:0.4,note:'indicator/inhibitor'},{n:'Methylene Blue',gL:0.065,note:'indicator/inhibitor'},{n:'Agar',gL:13.5,note:'solidifying agent'}],
+   pH:'7.1 ± 0.2',sterilization:'Autoclave 121°C / 15 min',storage:'4°C up to 4 weeks',selectivity:'Selective & differential for Gram-negative enteric bacteria',uses:'Differentiation of E. coli (metallic green sheen) from other Gram-negative enteric bacteria',
+   steps:['Weigh all ingredients.','Dissolve in 90% distilled water with heat.','Adjust pH to 7.1 ± 0.2.','Bring to final volume.','Autoclave at 121°C for 15 min.','Cool to 50°C. Swirl to distribute precipitate evenly.','Pour plates. Solidify. Store inverted at 4°C protected from light.'],
+   warnings:[{type:'info',text:'E. coli produces characteristic metallic green sheen on EMB due to intense lactose fermentation. Other coliforms appear pink/dark. Gram-positive organisms are inhibited.'},{type:'warning',text:'Store plates protected from light — methylene blue is photosensitive.'}]},
+  {id:'camp',name:'Campylobacter Blood-Free Agar (mCCDA)',abbr:'mCCDA',cat:'specialized',
+   ingredients:[{n:'Nutrient Broth No.2 / Columbia Base',gL:36,note:'growth base'},{n:'Charcoal (Activated)',gL:4,note:'detoxifier'},{n:'Casein Hydrolysate',gL:3,note:'nitrogen source'},{n:'Sodium Deoxycholate',gL:1,note:'selective agent'},{n:'Ferrous Sulphate (FeSO₄)',gL:0.25,note:'oxygen scavenger'},{n:'Sodium Pyruvate',gL:0.25,note:'oxygen scavenger'},{n:'Cefoperazone (CCDA Supplement, 1 vial)',gL:0.032,note:'antibiotic, added after autoclaving'},{n:'Amphotericin B (1 vial)',gL:0.01,note:'antifungal, added after autoclaving'}],
+   pH:'7.4 ± 0.2',sterilization:'Autoclave base 121°C / 15 min; add supplements at 50°C',storage:'4°C up to 2 weeks',selectivity:'Highly selective for Campylobacter species',uses:'Isolation of Campylobacter jejuni, C. coli, C. lari from fecal samples and food',
+   steps:['Prepare and autoclave base medium at 121°C for 15 min.','Cool to 50°C.','Reconstitute CCDA supplement and amphotericin B with sterile distilled water or ethanol per manufacturer instructions.','Add supplements aseptically.','Pour plates. Solidify.','Store at 4°C. Use within 2 weeks.','Incubate inoculated plates at 42°C under microaerobic conditions (5% O₂, 10% CO₂, 85% N₂) for 24–48 hours.'],
+   warnings:[{type:'danger',text:'Campylobacter requires microaerobic incubation (5% O₂). Plates incubated in aerobic or anaerobic conditions will not support growth.'},{type:'warning',text:'Add antibiotic supplements only after cooling to 50°C — antibiotics are heat-labile.'}]},
+  {id:'sorbmac',name:'Sorbitol MacConkey Agar',abbr:'SMAC',cat:'specialized',
+   ingredients:[{n:'Peptone',gL:20,note:'nitrogen source'},{n:'Sorbitol',gL:10,note:'replaces lactose — STEC cannot ferment sorbitol'},{n:'Bile Salts',gL:1.5,note:'selective inhibitor'},{n:'Sodium Chloride (NaCl)',gL:5,note:'osmotic balance'},{n:'Neutral Red',gL:0.03,note:'pH indicator'},{n:'Crystal Violet',gL:0.001,note:'inhibitor'},{n:'Agar',gL:13.5,note:'solidifying agent'}],
+   pH:'7.1 ± 0.2',sterilization:'Autoclave 121°C / 15 min',storage:'4°C up to 4 weeks',selectivity:'Selective & differential for E. coli O157:H7',uses:'Isolation of E. coli O157:H7 — appears as colorless/translucent colonies (cannot ferment sorbitol)',
+   steps:['Weigh all ingredients.','Dissolve in 90% distilled water — do not overheat.','Adjust pH to 7.1 ± 0.2.','Bring to final volume.','Autoclave at 121°C for 15 min.','Cool to 50°C.','Pour plates. Solidify at RT. Store at 4°C.'],
+   warnings:[{type:'info',text:'E. coli O157:H7 appears colorless/pale (sorbitol-negative). Other E. coli ferment sorbitol and appear pink/red. Cefixime-tellurite (CT) supplement may be added to increase selectivity.'},{type:'warning',text:'E. coli O157:H7 produces Shiga toxins — work in BSL-2 conditions with appropriate PPE.'}]},
+  {id:'thio',name:'Thioglycollate Broth',abbr:'Thioglycollate',cat:'specialized',
+   ingredients:[{n:'Yeast Extract',gL:5,note:'vitamins & growth factors'},{n:'Casitone (Tryptone)',gL:15,note:'nitrogen source'},{n:'Dextrose (Glucose)',gL:5.5,note:'energy source'},{n:'Sodium Chloride (NaCl)',gL:2.5,note:'osmotic balance'},{n:'Sodium Thioglycollate',gL:0.5,note:'reducing agent — creates oxygen gradient'},{n:'L-Cystine',gL:0.5,note:'reducing agent'},{n:'Resazurin (indicator)',gL:0.001,note:'oxygen indicator — pink when oxidized'},{n:'Agar',gL:0.75,note:'semi-solid — slows oxygen diffusion'}],
+   pH:'7.1 ± 0.2',sterilization:'Autoclave 121°C / 15 min',storage:'RT or 4°C up to 1 month',selectivity:'Non-selective; supports aerobic, anaerobic, and microaerophilic growth',uses:'Sterility testing; determining oxygen requirements of organisms; anaerobic culture',
+   steps:['Weigh all ingredients.','Dissolve in 90% distilled water.','Adjust pH to 7.1 ± 0.2.','Bring to final volume.','Dispense into tubes (filling to top).','Autoclave at 121°C for 15 min.','Store without agitation. Use within 7 days of preparation.','A pink zone in the upper third indicates oxidation — reheat in boiling water to drive off oxygen, then cool before use.'],
+   warnings:[{type:'warning',text:'If the upper third of the medium turns pink (resazurin oxidized), reheat in boiling water for 10 minutes. Do not use if more than half the medium has turned pink.'},{type:'info',text:'Aerobes grow near the top. Anaerobes grow at the bottom. Microaerophiles grow in the middle zone.'}]},
+  {id:'mr',name:'MR-VP Broth (Methyl Red / Voges-Proskauer)',abbr:'MR-VP Broth',cat:'specialized',
+   ingredients:[{n:'Buffered Peptone',gL:7,note:'nitrogen source'},{n:'Dextrose (Glucose)',gL:5,note:'substrate for acid/butanediol fermentation'},{n:'Dipotassium Phosphate (K₂HPO₄)',gL:5,note:'buffer'}],
+   pH:'6.9 ± 0.2',sterilization:'Autoclave 121°C / 15 min',storage:'4°C up to 1 month',selectivity:'Non-selective',uses:'Methyl Red (MR) and Voges-Proskauer (VP) biochemical tests for enterobacterial differentiation',
+   steps:['Weigh all ingredients.','Dissolve in 90% distilled water.','Adjust pH to 6.9 ± 0.2.','Bring to final volume.','Dispense 5 mL into tubes.','Autoclave at 121°C for 15 min.','Inoculate and incubate at 35°C for 48–72 hours.','For MR: add 5 drops methyl red reagent. Red = positive. For VP: add 0.6 mL α-naphthol + 0.2 mL 40% KOH. Red = positive within 15 min.'],
+   warnings:[{type:'info',text:'E. coli: MR positive, VP negative. Klebsiella/Enterobacter: MR negative, VP positive. IMViC pattern: E. coli = + + - - ; Klebsiella = - - + +'}]},
+  {id:'sim',name:'SIM Medium (Sulfur Indole Motility)',abbr:'SIM',cat:'specialized',
+   ingredients:[{n:'Peptone',gL:30,note:'substrate for indole production'},{n:'Beef Extract',gL:3,note:'growth factors'},{n:'Ferrous Ammonium Sulphate',gL:0.2,note:'H₂S indicator'},{n:'Sodium Thiosulphate (Na₂S₂O₃)',gL:0.025,note:'H₂S substrate'},{n:'Agar',gL:3,note:'semi-solid for motility observation'}],
+   pH:'7.3 ± 0.2',sterilization:'Autoclave 121°C / 15 min',storage:'4°C up to 3 months',selectivity:'Non-selective',uses:'Simultaneous detection of H₂S production, indole production, and motility in Enterobacteriaceae',
+   steps:['Weigh all ingredients.','Dissolve in 90% distilled water.','Adjust pH to 7.3 ± 0.2.','Bring to final volume.','Dispense 10 mL into tubes.','Autoclave at 121°C for 15 min. Allow to solidify vertically.','Inoculate by stabbing with inoculating needle to within 5mm of bottom.','Incubate at 35–37°C for 24–48 hours.','H₂S: black precipitate along stab line. Motility: turbidity spreading from stab. Indole: add Kovacs reagent — red ring = positive.'],
+   warnings:[{type:'info',text:'Do not shake tubes before reading — motility must be observed as diffuse growth from the stab line. Kovacs reagent is added only after incubation and only for indole test.'}]},
+];
+
+// Category labels
+const CATS={
+  general:{en:'General Purpose',fr:'Usage général',es:'Uso general',pt:'Uso geral',it:'Uso generale',ar:'عام الاستخدام',zh:'通用培养基',sw:'Matumizi ya Jumla',am:'አጠቃላይ ዓላማ',hi:'सामान्य उद्देश्य',bn:'সাধারণ উদ্দেশ্য',id:'Tujuan Umum',uk:'Загального призначення'},
+  selective:{en:'Selective & Differential',fr:'Sélectif & Différentiel',es:'Selectivo & Diferencial',pt:'Seletivo & Diferencial',it:'Selettivo & Differenziale',ar:'انتقائي وتفريقي',zh:'选择性与鉴别培养基',sw:'Teule na Tofauti',am:'መምረጫ እና ተለዋጭ',hi:'चयनात्मक और विभेदक',bn:'নির্বাচনী ও ভেদক',id:'Selektif & Diferensial',uk:'Вибіркові та диференційні'},
+  enrichment:{en:'Enrichment',fr:'Enrichissement',es:'Enriquecimiento',pt:'Enriquecimento',it:'Arricchimento',ar:'إثراء',zh:'增菌培养基',sw:'Utajiri',am:'ማበልፀጊያ',hi:'संवर्धन',bn:'সমৃদ্ধকরণ',id:'Pengayaan',uk:'Збагачення'},
+  specialized:{en:'Specialized',fr:'Spécialisé',es:'Especializado',pt:'Especializado',it:'Specializzato',ar:'متخصص',zh:'特殊培养基',sw:'Maalum',am:'ልዩ',hi:'विशेष',bn:'বিশেষায়িত',id:'Khusus',uk:'Спеціалізовані'},
+};
+
+// ── UI and Step Translations (all 22 languages) ─────────────────────
+// Auto-generated translations
+const UI = {
+  en: {
+    prompt: 'SELECT YOUR LANGUAGE',
+    change: 'Change language',
+    step1Title: 'Select a culture medium',
+    step1Sub: 'Choose from 30+ standard microbiological media',
+    step2Title: 'Enter volume needed',
+    step2Sub: 'How much media do you need to prepare?',
+    calc: 'Calculate',
+    ingrHeading: 'Ingredients',
+    thIngredient: 'Ingredient',
+    thAmount: 'Amount',
+    thConc: 'Per Liter',
+    thNotes: 'Function',
+    propertiesHeading: 'Media Properties',
+    stepsHeading: 'Preparation Steps',
+    phLabel: 'Final pH',
+    sterilLabel: 'Sterilization',
+    storageLabel: 'Storage',
+    selectLabel: 'Selectivity',
+    usesLabel: 'Uses',
+    errNoMedia: 'Please select a culture medium first.',
+    errNoVolume: 'Please enter a valid volume (10–100,000 mL).',
+    printBtn: 'Print',
+    all: 'All',
+    warningDanger: '🚨 Critical Warning',
+    warningWarn: '⚠️ Important',
+    warningInfo: 'ℹ️ Note',
+  },
+  fr: {
+    prompt: 'SÉLECTIONNEZ VOTRE LANGUE',
+    change: 'Changer de langue',
+    step1Title: 'Sélectionnez un milieu de culture',
+    step1Sub: 'Choisissez parmi plus de 30 milieux microbiologiques standards',
+    step2Title: 'Entrez le volume nécessaire',
+    step2Sub: 'De quelle quantité de milieu avez-vous besoin ?',
+    calc: 'Calculer',
+    ingrHeading: 'Ingrédients',
+    thIngredient: 'Ingrédient',
+    thAmount: 'Quantité',
+    thConc: 'Par litre',
+    thNotes: 'Fonction',
+    propertiesHeading: 'Propriétés du milieu',
+    stepsHeading: 'Étapes de préparation',
+    phLabel: 'pH final',
+    sterilLabel: 'Stérilisation',
+    storageLabel: 'Conservation',
+    selectLabel: 'Sélectivité',
+    usesLabel: 'Utilisations',
+    errNoMedia: 'Veuillez d\'abord sélectionner un milieu de culture.',
+    errNoVolume: 'Veuillez entrer un volume valide (10–100 000 mL).',
+    printBtn: 'Imprimer',
+    all: 'Tous',
+    warningDanger: '🚨 Avertissement critique',
+    warningWarn: '⚠️ Important',
+    warningInfo: 'ℹ️ Note',
+  },
+  es: {
+    prompt: 'SELECCIONE SU IDIOMA',
+    change: 'Cambiar idioma',
+    step1Title: 'Seleccione un medio de cultivo',
+    step1Sub: 'Elija entre más de 30 medios microbiológicos estándar',
+    step2Title: 'Ingrese el volumen necesario',
+    step2Sub: '¿Cuánto medio necesita preparar?',
+    calc: 'Calcular',
+    ingrHeading: 'Ingredientes',
+    thIngredient: 'Ingrediente',
+    thAmount: 'Cantidad',
+    thConc: 'Por litro',
+    thNotes: 'Función',
+    propertiesHeading: 'Propiedades del medio',
+    stepsHeading: 'Pasos de preparación',
+    phLabel: 'pH final',
+    sterilLabel: 'Esterilización',
+    storageLabel: 'Almacenamiento',
+    selectLabel: 'Selectividad',
+    usesLabel: 'Usos',
+    errNoMedia: 'Por favor seleccione primero un medio de cultivo.',
+    errNoVolume: 'Por favor ingrese un volumen válido (10–100.000 mL).',
+    printBtn: 'Imprimir',
+    all: 'Todos',
+    warningDanger: '🚨 Advertencia crítica',
+    warningWarn: '⚠️ Importante',
+    warningInfo: 'ℹ️ Nota',
+  },
+  pt: {
+    prompt: 'SELECIONE O SEU IDIOMA',
+    change: 'Mudar idioma',
+    step1Title: 'Selecione um meio de cultura',
+    step1Sub: 'Escolha entre mais de 30 meios microbiológicos padrão',
+    step2Title: 'Insira o volume necessário',
+    step2Sub: 'Quanto meio precisa preparar?',
+    calc: 'Calcular',
+    ingrHeading: 'Ingredientes',
+    thIngredient: 'Ingrediente',
+    thAmount: 'Quantidade',
+    thConc: 'Por litro',
+    thNotes: 'Função',
+    propertiesHeading: 'Propriedades do meio',
+    stepsHeading: 'Etapas de preparação',
+    phLabel: 'pH final',
+    sterilLabel: 'Esterilização',
+    storageLabel: 'Armazenamento',
+    selectLabel: 'Seletividade',
+    usesLabel: 'Usos',
+    errNoMedia: 'Por favor selecione primeiro um meio de cultura.',
+    errNoVolume: 'Por favor insira um volume válido (10–100.000 mL).',
+    printBtn: 'Imprimir',
+    all: 'Todos',
+    warningDanger: '🚨 Aviso crítico',
+    warningWarn: '⚠️ Importante',
+    warningInfo: 'ℹ️ Nota',
+  },
+  it: {
+    prompt: 'SELEZIONA LA TUA LINGUA',
+    change: 'Cambia lingua',
+    step1Title: 'Seleziona un terreno di coltura',
+    step1Sub: 'Scegli tra più di 30 terreni microbiologici standard',
+    step2Title: 'Inserisci il volume necessario',
+    step2Sub: 'Quanto terreno devi preparare?',
+    calc: 'Calcola',
+    ingrHeading: 'Ingredienti',
+    thIngredient: 'Ingrediente',
+    thAmount: 'Quantità',
+    thConc: 'Per litro',
+    thNotes: 'Funzione',
+    propertiesHeading: 'Proprietà del terreno',
+    stepsHeading: 'Fasi di preparazione',
+    phLabel: 'pH finale',
+    sterilLabel: 'Sterilizzazione',
+    storageLabel: 'Conservazione',
+    selectLabel: 'Selettività',
+    usesLabel: 'Usi',
+    errNoMedia: 'Seleziona prima un terreno di coltura.',
+    errNoVolume: 'Inserisci un volume valido (10–100.000 mL).',
+    printBtn: 'Stampa',
+    all: 'Tutti',
+    warningDanger: '🚨 Avviso critico',
+    warningWarn: '⚠️ Importante',
+    warningInfo: 'ℹ️ Nota',
+  },
+  ar: {
+    prompt: 'اختر لغتك',
+    change: 'تغيير اللغة',
+    step1Title: 'اختر وسيطًا للزرع',
+    step1Sub: 'اختر من أكثر من 30 وسيطًا ميكروبيولوجيًا قياسيًا',
+    step2Title: 'أدخل الحجم المطلوب',
+    step2Sub: 'كم من الوسيط تحتاج إلى تحضير؟',
+    calc: 'احسب',
+    ingrHeading: 'المكونات',
+    thIngredient: 'المكون',
+    thAmount: 'الكمية',
+    thConc: 'لكل لتر',
+    thNotes: 'الوظيفة',
+    propertiesHeading: 'خصائص الوسيط',
+    stepsHeading: 'خطوات التحضير',
+    phLabel: 'pH النهائي',
+    sterilLabel: 'التعقيم',
+    storageLabel: 'التخزين',
+    selectLabel: 'الانتقائية',
+    usesLabel: 'الاستخدامات',
+    errNoMedia: 'يرجى اختيار وسيط للزرع أولاً.',
+    errNoVolume: 'يرجى إدخال حجم صحيح (10–100,000 مل).',
+    printBtn: 'طباعة',
+    all: 'الكل',
+    warningDanger: '🚨 تحذير حرج',
+    warningWarn: '⚠️ مهم',
+    warningInfo: 'ℹ️ ملاحظة',
+  },
+  zh: {
+    prompt: '请选择您的语言',
+    change: '更换语言',
+    step1Title: '选择培养基',
+    step1Sub: '从30多种标准微生物培养基中选择',
+    step2Title: '输入所需体积',
+    step2Sub: '您需要配制多少培养基？',
+    calc: '计算',
+    ingrHeading: '成分',
+    thIngredient: '成分',
+    thAmount: '用量',
+    thConc: '每升用量',
+    thNotes: '功能',
+    propertiesHeading: '培养基性质',
+    stepsHeading: '配制步骤',
+    phLabel: '最终pH',
+    sterilLabel: '灭菌',
+    storageLabel: '储存',
+    selectLabel: '选择性',
+    usesLabel: '用途',
+    errNoMedia: '请先选择一种培养基。',
+    errNoVolume: '请输入有效体积（10–100,000 mL）。',
+    printBtn: '打印',
+    all: '全部',
+    warningDanger: '🚨 严重警告',
+    warningWarn: '⚠️ 重要',
+    warningInfo: 'ℹ️ 注意',
+  },
+  sw: {
+    prompt: 'CHAGUA LUGHA YAKO',
+    change: 'Badilisha lugha',
+    step1Title: 'Chagua kati ya utamaduni',
+    step1Sub: 'Chagua kutoka kati ya zaidi ya 30 ya kawaida ya microbiolojia',
+    step2Title: 'Weka kiasi kinachohitajika',
+    step2Sub: 'Unahitaji kiasi gani cha kati kuandaa?',
+    calc: 'Hesabu',
+    ingrHeading: 'Viungo',
+    thIngredient: 'Kiungo',
+    thAmount: 'Kiasi',
+    thConc: 'Kwa lita moja',
+    thNotes: 'Kazi',
+    propertiesHeading: 'Mali ya Kati',
+    stepsHeading: 'Hatua za Kuandaa',
+    phLabel: 'pH ya Mwisho',
+    sterilLabel: 'Utakasaji',
+    storageLabel: 'Uhifadhi',
+    selectLabel: 'Uchaguzi',
+    usesLabel: 'Matumizi',
+    errNoMedia: 'Tafadhali chagua kati ya utamaduni kwanza.',
+    errNoVolume: 'Tafadhali weka kiasi halali (10–100,000 mL).',
+    printBtn: 'Chapisha',
+    all: 'Zote',
+    warningDanger: '🚨 Onyo la Hatari',
+    warningWarn: '⚠️ Muhimu',
+    warningInfo: 'ℹ️ Kumbuka',
+  },
+  am: {
+    prompt: 'ቋንቋዎን ይምረጡ',
+    change: 'ቋንቋ ይቀይሩ',
+    step1Title: 'የባህል ሚዲያ ይምረጡ',
+    step1Sub: 'ከ30 በላይ የተለመዱ ማይክሮባዮሎጂ ሚዲያዎች ይምረጡ',
+    step2Title: 'የሚፈለገውን መጠን ያስገቡ',
+    step2Sub: 'ምን ያህል ሚዲያ ማዘጋጀት ይፈልጋሉ?',
+    calc: 'አስሉ',
+    ingrHeading: 'ግብዓቶች',
+    thIngredient: 'ግብዓት',
+    thAmount: 'መጠን',
+    thConc: 'በአንድ ሊትር',
+    thNotes: 'ተግባር',
+    propertiesHeading: 'የሚዲያ ባህሪያት',
+    stepsHeading: 'የዝግጅት ደረጃዎች',
+    phLabel: 'የመጨረሻ pH',
+    sterilLabel: 'ማምከን',
+    storageLabel: 'ማከማቻ',
+    selectLabel: 'ምርጫ',
+    usesLabel: 'አጠቃቀሞች',
+    errNoMedia: 'እባክዎ መጀመሪያ የባህል ሚዲያ ይምረጡ።',
+    errNoVolume: 'እባክዎ ትክክለኛ መጠን ያስገቡ (10–100,000 mL)።',
+    printBtn: 'አትም',
+    all: 'ሁሉም',
+    warningDanger: '🚨 አስቸኳይ ማስጠንቀቂያ',
+    warningWarn: '⚠️ አስፈላጊ',
+    warningInfo: 'ℹ️ ማስታወሻ',
+  },
+  hi: {
+    prompt: 'अपनी भाषा चुनें',
+    change: 'भाषा बदलें',
+    step1Title: 'एक संस्कृति माध्यम चुनें',
+    step1Sub: '30+ मानक सूक्ष्मजीवविज्ञान माध्यमों में से चुनें',
+    step2Title: 'आवश्यक मात्रा दर्ज करें',
+    step2Sub: 'आपको कितना माध्यम तैयार करना है?',
+    calc: 'गणना करें',
+    ingrHeading: 'सामग्री',
+    thIngredient: 'सामग्री',
+    thAmount: 'मात्रा',
+    thConc: 'प्रति लीटर',
+    thNotes: 'कार्य',
+    propertiesHeading: 'माध्यम के गुण',
+    stepsHeading: 'तैयारी के चरण',
+    phLabel: 'अंतिम pH',
+    sterilLabel: 'नसबंदी',
+    storageLabel: 'भंडारण',
+    selectLabel: 'चयनात्मकता',
+    usesLabel: 'उपयोग',
+    errNoMedia: 'कृपया पहले एक संस्कृति माध्यम चुनें।',
+    errNoVolume: 'कृपया एक वैध मात्रा दर्ज करें (10–100,000 mL)।',
+    printBtn: 'प्रिंट करें',
+    all: 'सभी',
+    warningDanger: '🚨 गंभीर चेतावनी',
+    warningWarn: '⚠️ महत्वपूर्ण',
+    warningInfo: 'ℹ️ नोट',
+  },
+  bn: {
+    prompt: 'আপনার ভাষা নির্বাচন করুন',
+    change: 'ভাষা পরিবর্তন করুন',
+    step1Title: 'একটি কালচার মিডিয়া বেছে নিন',
+    step1Sub: '৩০টিরও বেশি আদর্শ মাইক্রোবায়োলজিক্যাল মিডিয়া থেকে বেছে নিন',
+    step2Title: 'প্রয়োজনীয় পরিমাণ লিখুন',
+    step2Sub: 'আপনাকে কতটুকু মিডিয়া তৈরি করতে হবে?',
+    calc: 'গণনা করুন',
+    ingrHeading: 'উপাদান',
+    thIngredient: 'উপাদান',
+    thAmount: 'পরিমাণ',
+    thConc: 'প্রতি লিটার',
+    thNotes: 'কার্যকারিতা',
+    propertiesHeading: 'মিডিয়ার বৈশিষ্ট্য',
+    stepsHeading: 'প্রস্তুতির ধাপ',
+    phLabel: 'চূড়ান্ত pH',
+    sterilLabel: 'জীবাণুমুক্তকরণ',
+    storageLabel: 'সংরক্ষণ',
+    selectLabel: 'নির্বাচনীতা',
+    usesLabel: 'ব্যবহার',
+    errNoMedia: 'অনুগ্রহ করে আগে একটি কালচার মিডিয়া বেছে নিন।',
+    errNoVolume: 'অনুগ্রহ করে একটি বৈধ পরিমাণ লিখুন (10–100,000 mL)।',
+    printBtn: 'প্রিন্ট করুন',
+    all: 'সব',
+    warningDanger: '🚨 গুরুত্বপূর্ণ সতর্কতা',
+    warningWarn: '⚠️ গুরুত্বপূর্ণ',
+    warningInfo: 'ℹ️ নোট',
+  },
+  id: {
+    prompt: 'PILIH BAHASA ANDA',
+    change: 'Ganti bahasa',
+    step1Title: 'Pilih medium kultur',
+    step1Sub: 'Pilih dari lebih dari 30 medium mikrobiologi standar',
+    step2Title: 'Masukkan volume yang dibutuhkan',
+    step2Sub: 'Berapa banyak medium yang perlu Anda siapkan?',
+    calc: 'Hitung',
+    ingrHeading: 'Bahan-bahan',
+    thIngredient: 'Bahan',
+    thAmount: 'Jumlah',
+    thConc: 'Per liter',
+    thNotes: 'Fungsi',
+    propertiesHeading: 'Sifat Medium',
+    stepsHeading: 'Langkah Persiapan',
+    phLabel: 'pH Akhir',
+    sterilLabel: 'Sterilisasi',
+    storageLabel: 'Penyimpanan',
+    selectLabel: 'Selektivitas',
+    usesLabel: 'Kegunaan',
+    errNoMedia: 'Harap pilih medium kultur terlebih dahulu.',
+    errNoVolume: 'Harap masukkan volume yang valid (10–100.000 mL).',
+    printBtn: 'Cetak',
+    all: 'Semua',
+    warningDanger: '🚨 Peringatan Kritis',
+    warningWarn: '⚠️ Penting',
+    warningInfo: 'ℹ️ Catatan',
+  },
+  uk: {
+    prompt: 'ОБЕРІТЬ ВАШУ МОВУ',
+    change: 'Змінити мову',
+    step1Title: 'Оберіть середовище для культивування',
+    step1Sub: 'Виберіть із 30+ стандартних мікробіологічних середовищ',
+    step2Title: 'Введіть необхідний об\'єм',
+    step2Sub: 'Скільки середовища потрібно приготувати?',
+    calc: 'Розрахувати',
+    ingrHeading: 'Інгредієнти',
+    thIngredient: 'Інгредієнт',
+    thAmount: 'Кількість',
+    thConc: 'На літр',
+    thNotes: 'Функція',
+    propertiesHeading: 'Властивості середовища',
+    stepsHeading: 'Етапи приготування',
+    phLabel: 'Кінцевий pH',
+    sterilLabel: 'Стерилізація',
+    storageLabel: 'Зберігання',
+    selectLabel: 'Вибірковість',
+    usesLabel: 'Застосування',
+    errNoMedia: 'Будь ласка, спочатку оберіть середовище.',
+    errNoVolume: 'Будь ласка, введіть коректний об\'єм (10–100,000 мл).',
+    printBtn: 'Друкувати',
+    all: 'Всі',
+    warningDanger: '🚨 Критичне попередження',
+    warningWarn: '⚠️ Важливо',
+    warningInfo: 'ℹ️ Примітка',
+  },
+  ha: {
+    prompt: 'ZAƁI YARENKA',
+    change: 'Canza yare',
+    step1Title: 'Zaɓi kafofin al\'adun',
+    step1Sub: 'Zaɓi daga sama da kafofin 30 na al\'adun microbiology',
+    step2Title: 'Shigar da adadin da ake bukata',
+    step2Sub: 'Nawa ne kake bukata ka shirya?',
+    calc: 'Ƙidaya',
+    ingrHeading: 'Kayan Abinci',
+    thIngredient: 'Kayan Abinci',
+    thAmount: 'Adadi',
+    thConc: 'A kowace lita',
+    thNotes: 'Aiki',
+    propertiesHeading: 'Kaddarorin Kafofin',
+    stepsHeading: 'Matakai na Shirya',
+    phLabel: 'Ƙarshen pH',
+    sterilLabel: 'Tsaftatawa',
+    storageLabel: 'Ajiyewa',
+    selectLabel: 'Zaɓe',
+    usesLabel: 'Amfani',
+    errNoMedia: 'Da fatan za a zaɓi kafofin al\'adun da farko.',
+    errNoVolume: 'Da fatan za a shigar da adadin da ya dace (10–100,000 mL).',
+    printBtn: 'Buga',
+    all: 'Duka',
+    warningDanger: '🚨 Gargaɗi Mai Mahimmanci',
+    warningWarn: '⚠️ Muhimmi',
+    warningInfo: 'ℹ️ Lura',
+  },
+  yo: {
+    prompt: 'YAN ÈDÈ RẸKỌ',
+    change: 'Yi ede pada',
+    step1Title: 'Yan ẹrọ aṣa',
+    step1Sub: 'Yan lati inu diẹ sii ju 30 awọn media microbiology boṣewa',
+    step2Title: 'Tẹ iwọn didun to nilo',
+    step2Sub: 'Elo media ni o nilo lati pese?',
+    calc: 'Ṣiro',
+    ingrHeading: 'Awọn eroja',
+    thIngredient: 'Eroja',
+    thAmount: 'Iye',
+    thConc: 'Fun lita kan',
+    thNotes: 'Iṣẹ',
+    propertiesHeading: 'Awọn ohun-ini Media',
+    stepsHeading: 'Awọn igbesẹ igbaradi',
+    phLabel: 'pH Ikẹhin',
+    sterilLabel: 'Idaraya',
+    storageLabel: 'Ipamọ',
+    selectLabel: 'Asayan',
+    usesLabel: 'Awọn lilo',
+    errNoMedia: 'Jọwọ yan media aṣa ni akọkọ.',
+    errNoVolume: 'Jọwọ tẹ iwọn didun to wulo (10–100,000 mL).',
+    printBtn: 'Tẹ jade',
+    all: 'Gbogbo',
+    warningDanger: '🚨 Ikilọ Pataki',
+    warningWarn: '⚠️ Pataki',
+    warningInfo: 'ℹ️ Akọsilẹ',
+  },
+  ln: {
+    prompt: 'PONA LOKOTA NA YO',
+    change: 'Sungola lokota',
+    step1Title: 'Pona likolo ya bioloji',
+    step1Sub: 'Pona na likolo ya 30 ya likolo ya microbiology',
+    step2Title: 'Kotia ntalo oyo esengeli',
+    step2Sub: 'Boni ntalo ya likolo osengeli kolimbola?',
+    calc: 'Luka',
+    ingrHeading: 'Biloko',
+    thIngredient: 'Eloko',
+    thAmount: 'Motango',
+    thConc: 'Na litre moko',
+    thNotes: 'Mosala',
+    propertiesHeading: 'Bingeli ya Likolo',
+    stepsHeading: 'Mabongisi ya Kolimbola',
+    phLabel: 'pH ya suka',
+    sterilLabel: 'Koboma bimikrobe',
+    storageLabel: 'Kobomba',
+    selectLabel: 'Kopona',
+    usesLabel: 'Kosalela',
+    errNoMedia: 'Tondela kolinga likolo ya bioloji liboso.',
+    errNoVolume: 'Tondela kotia ntalo ya solo (10–100,000 mL).',
+    printBtn: 'Kofanda',
+    all: 'Nyonso',
+    warningDanger: '🚨 Litomba ya Likama',
+    warningWarn: '⚠️ Ntina',
+    warningInfo: 'ℹ️ Tala',
+  },
+  mg: {
+    prompt: 'SAFIDIO NY TENANAO',
+    change: 'Hanova teny',
+    step1Title: 'Safidio ny fitaovana fananahana',
+    step1Sub: 'Misafidy amin ny fitaovana mihoatra ny 30',
+    step2Title: 'Ampidiro ny volavolan-kavolana ilaina',
+    step2Sub: 'Ohatrinona no fitaovana ilainao?',
+    calc: 'Kajy',
+    ingrHeading: 'Fitaovana',
+    thIngredient: 'Fitaovana',
+    thAmount: 'Isan-kaolika',
+    thConc: 'Isaky ny litatra',
+    thNotes: 'Asa',
+    propertiesHeading: 'Toetra ny Media',
+    stepsHeading: 'Dingana Fanomanana',
+    phLabel: 'pH farany',
+    sterilLabel: 'Fanadiovana',
+    storageLabel: 'Fitehirizana',
+    selectLabel: 'Fisafidianana',
+    usesLabel: 'Fampiasana',
+    errNoMedia: 'Azafady safidio ny fitaovana fananahana aloha.',
+    errNoVolume: 'Azafady ampidiro volavolan-kavolana mety (10–100,000 mL).',
+    printBtn: 'Printy',
+    all: 'Rehetra',
+    warningDanger: '🚨 Fampitandremana maika',
+    warningWarn: '⚠️ Zava-dehibe',
+    warningInfo: 'ℹ️ Fanamarihana',
+  },
+  ne: {
+    prompt: 'आफ्नो भाषा चुन्नुहोस्',
+    change: 'भाषा परिवर्तन गर्नुहोस्',
+    step1Title: 'संस्कृति माध्यम छान्नुहोस्',
+    step1Sub: '३०+ मानक माइक्रोबायोलोजी माध्यमहरूबाट छान्नुहोस्',
+    step2Title: 'आवश्यक मात्रा प्रविष्ट गर्नुहोस्',
+    step2Sub: 'तपाईंलाई कति माध्यम तयार गर्नु पर्छ?',
+    calc: 'गणना गर्नुहोस्',
+    ingrHeading: 'सामग्रीहरू',
+    thIngredient: 'सामग्री',
+    thAmount: 'मात्रा',
+    thConc: 'प्रति लिटर',
+    thNotes: 'कार्य',
+    propertiesHeading: 'माध्यमका गुणहरू',
+    stepsHeading: 'तयारीका चरणहरू',
+    phLabel: 'अन्तिम pH',
+    sterilLabel: 'जीवाणुनाश',
+    storageLabel: 'भण्डारण',
+    selectLabel: 'चयनात्मकता',
+    usesLabel: 'उपयोगहरू',
+    errNoMedia: 'कृपया पहिले संस्कृति माध्यम छान्नुहोस्।',
+    errNoVolume: 'कृपया मान्य मात्रा प्रविष्ट गर्नुहोस् (10–100,000 mL)।',
+    printBtn: 'प्रिन्ट गर्नुहोस्',
+    all: 'सबै',
+    warningDanger: '🚨 गम्भीर चेतावनी',
+    warningWarn: '⚠️ महत्वपूर्ण',
+    warningInfo: 'ℹ️ टिप्पणी',
+  },
+  tl: {
+    prompt: 'PILIIN ANG IYONG WIKA',
+    change: 'Palitan ang wika',
+    step1Title: 'Pumili ng culture medium',
+    step1Sub: 'Pumili mula sa 30+ karaniwang microbiological media',
+    step2Title: 'Ilagay ang kinakailangang dami',
+    step2Sub: 'Magkano na media ang kailangan mong ihanda?',
+    calc: 'Kalkulahin',
+    ingrHeading: 'Mga Sangkap',
+    thIngredient: 'Sangkap',
+    thAmount: 'Halaga',
+    thConc: 'Bawat litro',
+    thNotes: 'Tungkulin',
+    propertiesHeading: 'Mga Katangian ng Media',
+    stepsHeading: 'Mga Hakbang sa Paghahanda',
+    phLabel: 'Panghuling pH',
+    sterilLabel: 'Sterilisasyon',
+    storageLabel: 'Pag-iimbak',
+    selectLabel: 'Selectivity',
+    usesLabel: 'Mga Gamit',
+    errNoMedia: 'Mangyaring pumili muna ng culture medium.',
+    errNoVolume: 'Mangyaring maglagay ng wastong dami (10–100,000 mL).',
+    printBtn: 'I-print',
+    all: 'Lahat',
+    warningDanger: '🚨 Kritikal na Babala',
+    warningWarn: '⚠️ Mahalaga',
+    warningInfo: 'ℹ️ Tala',
+  },
+  rw: {
+    prompt: 'HITAMO URURIMI RWAWE',
+    change: 'Hindura ururimi',
+    step1Title: 'Hitamo uburyo bwo gukora culture',
+    step1Sub: 'Hitamo mu buryo birenga 30 bya microbiologie',
+    step2Title: 'Shyiramo ingano iboneka',
+    step2Sub: 'Ingano ingana ite ya culture ukeneye gutegura?',
+    calc: 'Bara',
+    ingrHeading: 'Ibirungo',
+    thIngredient: 'Ikiringo',
+    thAmount: 'Ingano',
+    thConc: 'Kuri lita imwe',
+    thNotes: 'Akazi',
+    propertiesHeading: 'Imibare ya Media',
+    stepsHeading: 'Intambwe zo Gutegura',
+    phLabel: 'pH ya Nyuma',
+    sterilLabel: 'Gutsemba Ibyankabwa',
+    storageLabel: 'Kubika',
+    selectLabel: 'Guhitamo',
+    usesLabel: 'Ibikorwa',
+    errNoMedia: 'Nyamuneka hitamo uburyo bwa culture bwa mbere.',
+    errNoVolume: 'Nyamuneka shyiramo ingano yemewe (10–100,000 mL).',
+    printBtn: 'Fotokopio',
+    all: 'Byose',
+    warningDanger: '🚨 Impanuka Ikomeye',
+    warningWarn: '⚠️ Ngombwa',
+    warningInfo: 'ℹ️ Icyitonderwa',
+  },
+  rn: {
+    prompt: 'HITAMWO URURIMI RWAWE',
+    change: 'Hindura ururimi',
+    step1Title: 'Hitamwo uburyo bwo gukora culture',
+    step1Sub: 'Hitamwo mu buryo birenga 30 bya microbiologie',
+    step2Title: 'Shiramo ingano iboneka',
+    step2Sub: 'Ingano ingana ite ya culture ukeneye gutegura?',
+    calc: 'Bara',
+    ingrHeading: 'Ibirungo',
+    thIngredient: 'Ikiringo',
+    thAmount: 'Ingano',
+    thConc: 'Kuri lita imwe',
+    thNotes: 'Akazi',
+    propertiesHeading: 'Ivyimenyetso vya Media',
+    stepsHeading: 'Intambwe zo Gutegura',
+    phLabel: 'pH ya Nyuma',
+    sterilLabel: 'Gutsemba Ibikorwa Bibi',
+    storageLabel: 'Kubika',
+    selectLabel: 'Guhitamwo',
+    usesLabel: 'Ibikorwa',
+    errNoMedia: 'Murakoze hitamwo uburyo bwa culture bwa mbere.',
+    errNoVolume: 'Murakoze shiramo ingano yemewe (10–100,000 mL).',
+    printBtn: 'Fotokopio',
+    all: 'Vyose',
+    warningDanger: '🚨 Impanuka Ikomeye',
+    warningWarn: '⚠️ Ngombwa',
+    warningInfo: 'ℹ️ Iciyumviro',
+  },
+  ny: {
+    prompt: 'SANKHANI CHINENERO CHANU',
+    change: 'Sinthani chinenero',
+    step1Title: 'Sankhani njira ya culture',
+    step1Sub: 'Sankhani kuchokera pa njira zoposa 30 za microbiology',
+    step2Title: 'Lowetsani kuchuluka kokhumba',
+    step2Sub: 'Ndi kuchuluka kotani kwa culture mukufuna kukonza?',
+    calc: 'Werengani',
+    ingrHeading: 'Zinthu Zosanjikiza',
+    thIngredient: 'Chinthu',
+    thAmount: 'Kuchuluka',
+    thConc: 'Pa lita imodzi',
+    thNotes: 'Ntchito',
+    propertiesHeading: 'Makhalidwe a Media',
+    stepsHeading: 'Mapazi Okonzekera',
+    phLabel: 'pH Yomaliza',
+    sterilLabel: 'Kupha Tizilombo',
+    storageLabel: 'Kusunga',
+    selectLabel: 'Kusankha',
+    usesLabel: 'Kugwiritsa Ntchito',
+    errNoMedia: 'Chonde sankhani njira ya culture kaye.',
+    errNoVolume: 'Chonde lowetsani kuchuluka kolondola (10–100,000 mL).',
+    printBtn: 'Sindikizani',
+    all: 'Zonse',
+    warningDanger: '🚨 Chenjezo Lalikulu',
+    warningWarn: '⚠️ Zofunika',
+    warningInfo: 'ℹ️ Zindikiro',
+  },
+};
+
+const STEPS = {
+  'weigh': {
+    en: 'Weigh all ingredients accurately using a calibrated balance.',
+    fr: 'Peser tous les ingrédients avec précision à l\'aide d\'une balance étalonnée.',
+    es: 'Pesar todos los ingredientes con precisión usando una balanza calibrada.',
+    pt: 'Pesar todos os ingredientes com precisão usando uma balança calibrada.',
+    it: 'Pesare tutti gli ingredienti con precisione usando una bilancia calibrata.',
+    ar: 'وزِّن جميع المكونات بدقة باستخدام ميزان معايَر.',
+    zh: '使用校准天平准确称量所有成分。',
+    sw: 'Pima viungo vyote kwa usahihi kwa kutumia mizani iliyosaidiwa.',
+    am: 'ሁሉንም ግብዓቶች በቀመር ሚዛን በመጠቀም በትክክል ይዝን።',
+    hi: 'अंशांकित तुला का उपयोग करके सभी सामग्री को सटीक रूप से तौलें।',
+    bn: 'একটি ক্যালিব্রেটেড ব্যালেন্স ব্যবহার করে সমস্ত উপাদান সঠিকভাবে ওজন করুন।',
+    id: 'Timbang semua bahan secara akurat menggunakan timbangan terkalibrasi.',
+    uk: 'Зважте всі інгредієнти точно за допомогою відкаліброваних ваг.',
+    ha: 'Auna duk kayan abinci da daidaito ta amfani da ma\'aunin da aka daidaita.',
+    yo: 'Iwọn gbogbo awọn eroja ni deede nipa lilo iwọn ti a ṣatunṣe.',
+    ln: 'Lekola biloko nyonso na solosolo na nzela ya pezo oyo ebongi.',
+    mg: 'Lanjao ny fitaovana rehetra amim-pahambaroana amin\'ny fampiasana mizana voalamina.',
+    ne: 'क्यालिब्रेट गरिएको तराजु प्रयोग गरी सबै सामग्री सटीक रूपमा तौल्नुहोस्।',
+    tl: 'Timbangin nang tumpak ang lahat ng sangkap gamit ang isang calibrated na timbangan.',
+    rw: 'Pima ibintu byose neza ukoresheje ikiringaniro cya kalibrée.',
+    rn: 'Pima ibintu vyose neza ukoresheje ikiringaniro ca kalibrée.',
+    ny: 'Yesani zinthu zonse mosamala pogwiritsa ntchito mizani yolongosoka.',
+  },
+  'dissolve90': {
+    en: 'Add ingredients to approximately 90% of the final volume of distilled water. Stir until completely dissolved.',
+    fr: 'Ajouter les ingrédients à environ 90% du volume final d\'eau distillée. Agiter jusqu\'à dissolution complète.',
+    es: 'Agregar los ingredientes a aproximadamente el 90% del volumen final de agua destilada. Agitar hasta disolución completa.',
+    pt: 'Adicionar os ingredientes a aproximadamente 90% do volume final de água destilada. Agitar até dissolução completa.',
+    it: 'Aggiungere gli ingredienti a circa il 90% del volume finale di acqua distillata. Agitare fino a completa dissoluzione.',
+    ar: 'أضف المكونات إلى حوالي 90٪ من الحجم النهائي من الماء المقطر. حرّك حتى يذوب تمامًا.',
+    zh: '将成分加入约90%最终体积的蒸馏水中，搅拌至完全溶解。',
+    sw: 'Ongeza viungo kwenye takriban 90% ya ujazo wa mwisho wa maji ya kuchemsha. Koroga hadi iyeyuke kabisa.',
+    am: 'ግብዓቶቹን ወደ 90% የሚሆን የተቀቀለ ውሃ ውስጥ ይጨምሩ። ሙሉ በሙሉ እስኪቀልጥ ድረስ ይቀላቅሉ።',
+    hi: 'सामग्री को आसुत जल के अंतिम आयतन के लगभग 90% में मिलाएं। पूरी तरह से घुलने तक हिलाएं।',
+    bn: 'পাতিত জলের চূড়ান্ত আয়তনের প্রায় 90%-এ উপাদান যোগ করুন। সম্পূর্ণ দ্রবীভূত না হওয়া পর্যন্ত নাড়ুন।',
+    id: 'Tambahkan bahan ke sekitar 90% dari volume akhir air suling. Aduk hingga benar-benar larut.',
+    uk: 'Додайте інгредієнти приблизно до 90% кінцевого об\'єму дистильованої води. Перемішуйте до повного розчинення.',
+    ha: 'Ƙara kayan abinci zuwa kusan 90% na ƙarshen ruwa mai tsabta. Juya har ya narke gaba ɗaya.',
+    yo: 'Fi awọn eroja sinu nipa 90% ti iwọn didun ikẹhin omi distilled. Dapọ titi yoo fi tuka patapata.',
+    ln: 'Kotia biloko na pene na 90% ya ntalo ya suka ya mai ya distillée. Kobongisa tii ebimi nyonso.',
+    mg: 'Ampidiro ny fitaovana amin\'ny 90% eo ho eo amin\'ny voluma farany amin\'ny rano distillée. Tantano mandra-kala tanteraka.',
+    ne: 'सामग्रीहरू आसुत जलको अन्तिम मात्राको लगभग 90% मा थप्नुहोस्। पूर्ण रूपमा घुलन नभएसम्म हल्लाउनुहोस्।',
+    tl: 'Idagdag ang mga sangkap sa humigit-kumulang 90% ng panghuling dami ng distilled water. Haluin hanggang ganap na matunaw.',
+    rw: 'Ongeraho ibirungo kuri 90% y\'ingano ya nyuma y\'amazi yezanye. Vugavuga kugeza bibiye bose.',
+    rn: 'Ongeraho ibirungo kuri 90% y\'ingano ya nyuma y\'amazi yezanye. Vugavuga gushika bimanye bose.',
+    ny: 'Onjerani zinthu ku pafupifupi 90% ya kuchuluka komaliza kwa madzi obvuta. Yimirani mpaka zisunge zonse.',
+  },
+  'adjustpH': {
+    en: 'Adjust pH to the target value using 1N NaOH (to increase) or 1N HCl (to decrease). Check with calibrated pH meter.',
+    fr: 'Ajuster le pH à la valeur cible avec NaOH 1N (pour augmenter) ou HCl 1N (pour diminuer). Vérifier avec un pH-mètre étalonné.',
+    es: 'Ajustar el pH al valor objetivo con NaOH 1N (para aumentar) o HCl 1N (para disminuir). Verificar con pH-metro calibrado.',
+    pt: 'Ajustar o pH ao valor alvo com NaOH 1N (para aumentar) ou HCl 1N (para diminuir). Verificar com pH-metro calibrado.',
+    it: 'Regolare il pH al valore target con NaOH 1N (per aumentare) o HCl 1N (per diminuire). Verificare con pH-metro calibrato.',
+    ar: 'اضبط الرقم الهيدروجيني إلى القيمة المستهدفة باستخدام NaOH 1N (للزيادة) أو HCl 1N (للتخفيض). تحقق باستخدام مقياس pH معايَر.',
+    zh: '使用1N NaOH（提高）或1N HCl（降低）调节pH至目标值。用校准的pH计检测。',
+    sw: 'Rekebisha pH hadi thamani inayolengwa kwa kutumia NaOH 1N (kuongeza) au HCl 1N (kupunguza). Angalia kwa pH mita iliyosaidiwa.',
+    am: 'PH ን ወደ ዒላማ ዋጋ ያስተካክሉ 1N NaOH (ለመጨመር) ወይም 1N HCl (ለመቀነስ) ይጠቀሙ። በቀመር pH ሜትር ያረጋግጡ።',
+    hi: 'pH को लक्ष्य मान पर 1N NaOH (बढ़ाने के लिए) या 1N HCl (घटाने के लिए) से समायोजित करें। अंशांकित pH मीटर से जांचें।',
+    bn: '1N NaOH (বাড়ানোর জন্য) বা 1N HCl (কমানোর জন্য) ব্যবহার করে pH লক্ষ্য মানে সামঞ্জস্য করুন। ক্যালিব্রেটেড pH মিটার দিয়ে পরীক্ষা করুন।',
+    id: 'Sesuaikan pH ke nilai target menggunakan NaOH 1N (untuk meningkatkan) atau HCl 1N (untuk menurunkan). Periksa dengan pH meter terkalibrasi.',
+    uk: 'Відрегулюйте pH до цільового значення за допомогою 1N NaOH (для збільшення) або 1N HCl (для зменшення). Перевірте відкаліброваним pH-метром.',
+    ha: 'Daidaita pH zuwa ƙimar manufa ta amfani da NaOH 1N (don ƙara) ko HCl 1N (don rage). Bincika da pH mita mai daidaituwa.',
+    yo: 'Ṣatunṣe pH si iye ibi-afẹde nipa lilo NaOH 1N (lati mu pọ si) tabi HCl 1N (lati dinku). Ṣayẹwo pẹlu pH mita ti a ṣatunṣe.',
+    ln: 'Kosalelaka NaOH 1N (mpo na kolendisa) to HCl 1N (mpo na kokitisa), salisa pH na valeur ya boloko. Tatola na pH mita oyo ebongi.',
+    mg: 'Ampifandraisina ny pH amin\'ny sanda kendrena amin\'ny fampiasana 1N NaOH (hanakana) na 1N HCl (hampidinana). Mamaritra amin\'ny pH meter voalamina.',
+    ne: '1N NaOH (बढाउन) वा 1N HCl (घटाउन) प्रयोग गरी pH लाई लक्ष्य मूल्यमा समायोजन गर्नुहोस्। क्यालिब्रेटेड pH मिटरले जाँच गर्नुहोस्।',
+    tl: 'I-adjust ang pH sa target na halaga gamit ang 1N NaOH (para taasan) o 1N HCl (para babaan). Suriin gamit ang calibrated na pH meter.',
+    rw: 'Hindura pH kugera kuri agaciro k\'intego ukoresheje NaOH 1N (kongeraho) cyangwa HCl 1N (kugabanya). Reba na pH meter y\'amasomo.',
+    rn: 'Hindura pH kugera kuri agaciro k\'intego ukoresheje NaOH 1N (kongeraho) canke HCl 1N (kugabanya). Reba na pH meter y\'amasomo.',
+    ny: 'Sinthani pH ku mtengo wofunikira pogwiritsa ntchito 1N NaOH (kukweza) kapena 1N HCl (kuchepetsa). Onani ndi pH mita yolongosoka.',
+  },
+  'finalVolume': {
+    en: 'Bring to the final volume with distilled water.',
+    fr: 'Compléter au volume final avec de l\'eau distillée.',
+    es: 'Llevar al volumen final con agua destilada.',
+    pt: 'Completar até ao volume final com água destilada.',
+    it: 'Portare al volume finale con acqua distillata.',
+    ar: 'أكمل الحجم النهائي بالماء المقطر.',
+    zh: '用蒸馏水定容至最终体积。',
+    sw: 'Fikia ujazo wa mwisho kwa maji ya kuchemsha.',
+    am: 'የተቀቀለ ውሃ ጨምረው ወደ የመጨረሻ መጠን ያድርሱ።',
+    hi: 'आसुत जल से अंतिम आयतन तक लाएं।',
+    bn: 'পাতিত জল দিয়ে চূড়ান্ত আয়তনে নিয়ে আসুন।',
+    id: 'Tambahkan air suling hingga mencapai volume akhir.',
+    uk: 'Доведіть до кінцевого об\'єму дистильованою водою.',
+    ha: 'Kawo zuwa ƙarshen adadin da ruwa mai tsabta.',
+    yo: 'Mu wa si iwọn didun ikẹhin pẹlu omi distilled.',
+    ln: 'Komema na ntalo ya suka na mai ya distillée.',
+    mg: 'Hazavoa amin\'ny voluma farany amin\'ny rano distillée.',
+    ne: 'आसुत जलले अन्तिम मात्रामा ल्याउनुहोस्।',
+    tl: 'Dalhin sa panghuling dami gamit ang distilled water.',
+    rw: 'Gezeho ingano ya nyuma ukoresheje amazi yezanye.',
+    rn: 'Gezeho ingano ya nyuma ukoresheje amazi yezanye.',
+    ny: 'Bweretsa ku kuchuluka komaliza ndi madzi obvuta.',
+  },
+  'autoclave': {
+    en: 'Autoclave at 121°C for 15 minutes at 15 psi. Ensure the autoclave has reached the correct temperature before timing.',
+    fr: 'Autoclaver à 121°C pendant 15 minutes à 15 psi. S\'assurer que l\'autoclave a atteint la bonne température avant de chronométrer.',
+    es: 'Esterilizar en autoclave a 121°C durante 15 minutos a 15 psi. Asegurarse de que el autoclave haya alcanzado la temperatura correcta antes de cronometrar.',
+    pt: 'Esterilizar em autoclave a 121°C durante 15 minutos a 15 psi. Certificar que o autoclave atingiu a temperatura correta antes de cronometrar.',
+    it: 'Autoclavare a 121°C per 15 minuti a 15 psi. Assicurarsi che l\'autoclave abbia raggiunto la temperatura corretta prima di avviare il timer.',
+    ar: 'اعقِم في الأوتوكلاف عند 121°م لمدة 15 دقيقة عند 15 psi. تأكد من أن الأوتوكلاف قد وصل إلى درجة الحرارة الصحيحة قبل البدء في التوقيت.',
+    zh: '在121°C、15 psi条件下高压蒸汽灭菌15分钟。计时前确保高压灭菌锅已达到正确温度。',
+    sw: 'Chemsha kwa autoclave kwa 121°C kwa dakika 15 kwa 15 psi. Hakikisha autoclave imefika joto sahihi kabla ya kuanza kuhesabu muda.',
+    am: 'በ121°C ለ15 ደቂቃ በ15 psi ውስጥ አውቶክላቭ ያድርጉ። ጊዜ ከመቁጠርዎ በፊት አውቶክላቭ ትክክለኛ ሙቀት መድረሱን ያረጋግጡ።',
+    hi: '121°C पर 15 psi पर 15 मिनट के लिए ऑटोक्लेव करें। समय गिनने से पहले सुनिश्चित करें कि ऑटोक्लेव सही तापमान पर पहुंच गया है।',
+    bn: '121°C তে 15 psi-তে 15 মিনিটের জন্য অটোক্লেভ করুন। সময় গণনা শুরু করার আগে নিশ্চিত করুন যে অটোক্লেভ সঠিক তাপমাত্রায় পৌঁছেছে।',
+    id: 'Autoklaf pada 121°C selama 15 menit pada 15 psi. Pastikan autoklaf telah mencapai suhu yang benar sebelum menghitung waktu.',
+    uk: 'Автоклавуйте при 121°C протягом 15 хвилин при 15 psi. Переконайтеся, що автоклав досяг правильної температури перед відліком часу.',
+    ha: 'Gudanar da autoclave a 121°C na mintuna 15 a 15 psi. Tabbatar da autoclave ya kai zafin daidai kafin fara kirga lokaci.',
+    yo: 'Autoclave ni 121°C fun iṣẹju 15 ni 15 psi. Rii daju pe autoclave ti de iwọn otutu ti o tọ ṣaaju ki o to bẹrẹ akoko.',
+    ln: 'Autoclave na 121°C na miniti 15 na 15 psi. Kobosemisa ete autoclave ekomi na obuteli ya solosolo liboso ya koluka ntango.',
+    mg: 'Autoclave amin\'ny 121°C mandritra ny 15 minitra amin\'ny 15 psi. Mampitandrina fa ny autoclave dia efa tratra ny hafana marina alohan\'ny fotoana.',
+    ne: '121°C मा 15 psi मा 15 मिनेटको लागि अटोक्लेभ गर्नुहोस्। समय गन्तिनु अघि अटोक्लेभले सही तापक्रम प्राप्त गरेको सुनिश्चित गर्नुहोस्।',
+    tl: 'I-autoclave sa 121°C sa loob ng 15 minuto sa 15 psi. Tiyaking ang autoclave ay nakarating sa tamang temperatura bago ang pag-time.',
+    rw: 'Shyira mu autoclave kuri 121°C iminota 15 kuri 15 psi. Menya neza ko autoclave igeze ku bushyuhe bwayo mbere yo gutangira igihe.',
+    rn: 'Shyira mu autoclave kuri 121°C iminota 15 kuri 15 psi. Menya neza ko autoclave igeze ku bushyuhe bwayo mbere yo gutangira igihe.',
+    ny: 'Yikanikani mu autoclave pa 121°C kwa mphindi 15 pa 15 psi. Tsimikizirani kuti autoclave yafikira kutentha kwoyenera pamaso pa kuyamba kuwerengera nthawi.',
+  },
+  'coolAndPour': {
+    en: 'Cool to 50–55°C in a water bath before pouring. Pour approximately 20 mL per 90mm Petri dish. Allow to solidify at room temperature. Store inverted at 4°C.',
+    fr: 'Refroidir à 50–55°C dans un bain-marie avant de couler. Verser environ 20 mL par boîte de Pétri de 90 mm. Laisser solidifier à température ambiante. Conserver à 4°C, boîtes retournées.',
+    es: 'Enfriar a 50–55°C en baño de agua antes de verter. Verter aproximadamente 20 mL por placa de Petri de 90 mm. Dejar solidificar a temperatura ambiente. Almacenar invertido a 4°C.',
+    pt: 'Arrefecer a 50–55°C em banho-maria antes de verter. Verter aproximadamente 20 mL por placa de Petri de 90 mm. Deixar solidificar à temperatura ambiente. Conservar invertido a 4°C.',
+    it: 'Raffreddare a 50–55°C a bagnomaria prima di colare. Versare circa 20 mL per piastra di Petri da 90 mm. Lasciar solidificare a temperatura ambiente. Conservare capovolto a 4°C.',
+    ar: 'برّد إلى 50–55°م في حمام مائي قبل الصب. صُبَّ حوالي 20 مل في كل طبق بيتري بقطر 90 مم. اترك ليتصلب في درجة حرارة الغرفة. احفظ مقلوبًا عند 4°م.',
+    zh: '倒板前在水浴中冷却至50–55°C。每个90mm培养皿倒入约20 mL。在室温下凝固。倒置储存于4°C。',
+    sw: 'Poza hadi 50–55°C kwenye bafu ya maji kabla ya kumwaga. Mimina takriban 20 mL kwa kila sahani ya Petri ya 90mm. Acha igande kwa joto la kawaida. Hifadhi ikipindwa kwa 4°C.',
+    am: 'ከማፍሰስዎ በፊት በውሃ መታጠቢያ ውስጥ ወደ 50–55°C ያቀዘቅዙ። ለእያንዳንዱ 90mm የፔትሪ ዲሽ ወደ 20 mL ያፈሱ። በክፍሉ ሙቀት ይጠናቅ። በ4°C ወደ ላይ ቀልብሰው ያስቀምጡ።',
+    hi: 'ढालने से पहले पानी के स्नान में 50–55°C तक ठंडा करें। प्रत्येक 90mm पेट्री डिश में लगभग 20 mL डालें। कमरे के तापमान पर जमने दें। 4°C पर उलटे स्टोर करें।',
+    bn: 'ঢালার আগে জলের স্নানে 50–55°C এ ঠান্ডা করুন। প্রতিটি 90mm পেট্রি ডিশে প্রায় 20 mL ঢালুন। কক্ষ তাপমাত্রায় জমতে দিন। 4°C এ উল্টো করে সংরক্ষণ করুন।',
+    id: 'Dinginkan hingga 50–55°C dalam penangas air sebelum menuang. Tuang sekitar 20 mL per cawan Petri 90 mm. Biarkan mengeras pada suhu kamar. Simpan terbalik pada 4°C.',
+    uk: 'Охолодіть до 50–55°C у водяній бані перед розливанням. Розлийте приблизно 20 мл у кожну чашку Петрі діаметром 90 мм. Дайте застигнути при кімнатній температурі. Зберігайте перевернутими при 4°C.',
+    ha: 'Sa sanyi zuwa 50–55°C a cikin ruwa mai dumi kafin a zuba. Zuba kusan 20 mL a kowane farantin Petri na 90mm. Bari ya ƙarce a zafin ɗaki. Ajiye a juyawa a 4°C.',
+    yo: 'Tutu si 50–55°C ninu iwẹ omi ṣaaju ki o to dà. Dà nipa 20 mL fun awo Petri kọọkan ti 90mm. Jẹ ki o le ninu iwọn otutu yara. Tọju ti o yipada ni 4°C.',
+    ln: 'Pola kino 50–55°C na bain-marie liboso ya komema. Mema pene na 20 mL na mbeki moko ya Petri ya 90mm. Tika ebele na obuteli ya ndako. Bomba kolendisama na 4°C.',
+    mg: 'Hampangotsoha ho 50–55°C ao anatin\'ny bain-marie alohan\'ny fidinana. Aroso tokony ho 20 mL isaky ny lovia Petri 90mm. Avelao himafy amin\'ny hafanain\'ny efitra. Tehirezana amin\'ny 4°C voahodina.',
+    ne: 'हाल्नु अघि पानीको स्नानमा 50–55°C मा चिसो गर्नुहोस्। प्रत्येक 90mm पेट्री डिशमा लगभग 20 mL हाल्नुहोस्। कोठाको तापक्रममा जम्न दिनुहोस्। 4°C मा उल्टो राख्नुहोस्।',
+    tl: 'Palamig sa 50–55°C sa isang water bath bago ibuhos. Ibuhos ang humigit-kumulang 20 mL bawat 90mm Petri dish. Hayaang solidipiko sa temperatura ng silid. Itago nang nakabaliktad sa 4°C.',
+    rw: 'Funga kuri 50–55°C mu bain-marie mbere yo guturika. Turika nka 20 mL kuri buri Petri dish ya 90mm. Reka ikome ku bushyuhe bw\'inzu. Bika yagurujwe kuri 4°C.',
+    rn: 'Funga kuri 50–55°C mu bain-marie mbere yo guturika. Turika nka 20 mL kuri buri Petri dish ya 90mm. Reka ikome ku bushyuhe bw\'inzu. Bika yagurujwe kuri 4°C.',
+    ny: 'Ozetsani ku 50–55°C mu madzi otentha pamaso pa kuthira. Thira pafupifupi 20 mL pa mbale iliyonse ya Petri ya 90mm. Lolerani kuuma pa kutentha kwa chipinda. Sungani mozimitsa pa 4°C.',
+  },
+  'doNotAutoclave': {
+    en: 'DO NOT AUTOCLAVE this medium — heat with gentle stirring until just boiling, then remove from heat immediately.',
+    fr: 'NE PAS AUTOCLAVER ce milieu — chauffer avec agitation douce jusqu\'au début de l\'ébullition, puis retirer immédiatement du feu.',
+    es: 'NO ESTERILIZAR EN AUTOCLAVE este medio — calentar con agitación suave hasta que comience a hervir y retirar del fuego inmediatamente.',
+    pt: 'NÃO AUTOCLAVAR este meio — aquecer com agitação suave até começar a ferver, depois retirar do calor imediatamente.',
+    it: 'NON AUTOCLAVARE questo terreno — scaldare con lenta agitazione fino all\'inizio dell\'ebollizione, poi togliere immediatamente dal fuoco.',
+    ar: 'لا تُعقِّم هذا الوسيط في الأوتوكلاف — سخّنه مع التقليب الخفيف حتى يبدأ الغليان، ثم أزله عن النار فوراً.',
+    zh: '请勿高压灭菌此培养基——轻轻搅拌加热至刚开始沸腾，然后立即从火上移开。',
+    sw: 'USIFANYE AUTOCLAVE kwa kati hii — pasha joto kwa kukoroga polepole hadi ianze kuchemka, kisha ondoa kutoka kwenye joto mara moja.',
+    am: 'ይህን ሚዲያ አውቶክላቭ አያድርጉ — በቀስታ እየቀለቀሉ ሙቀት ይጨምሩ እስኪፈላ ድረስ፣ ከዚያ ወዲያው ከሙቀቱ ያርቁ።',
+    hi: 'इस माध्यम को ऑटोक्लेव न करें — धीरे-धीरे हिलाते हुए गर्म करें जब तक कि उबलना शुरू न हो, फिर तुरंत आंच से हटाएं।',
+    bn: 'এই মিডিয়া অটোক্লেভ করবেন না — আলতোভাবে নাড়তে নাড়তে গরম করুন যতক্ষণ না ফুটতে শুরু করে, তারপর অবিলম্বে আঁচ থেকে সরিয়ে নিন।',
+    id: 'JANGAN DIAUTOKLAF medium ini — panaskan sambil diaduk perlahan hingga baru mendidih, lalu segera angkat dari api.',
+    uk: 'НЕ АВТОКЛАВУЙТЕ це середовище — нагрівайте з обережним помішуванням до початку кипіння, потім негайно зніміть з вогню.',
+    ha: 'KADA A AUTOCLAVE wannan matsakaicin — ƙona da taushi yayin jujjuyawa har sai ya fara tafasa, sannan a cire daga wuta nan take.',
+    yo: 'MAṢE AUTOCLAVE media yii — gbona pẹlu fifọ kekere titi yoo fi bẹrẹ si sise, lẹhinna yọ kuro ninu ooru lẹsẹkẹsẹ.',
+    ln: 'KOBOMA LISUSU NA AUTOCLAVE likolo oyo te — pisa na kobongisa malamu tii ebanda kobima, sima kima na moto mbala moko.',
+    mg: 'AZA AUTOCLAVE ity media ity — hafanana miaraka amin\'ny fanaovana tsara mandra-pahavitan\'ny fanazarana, ary esorina avy hatrany amin\'ny hafanana.',
+    ne: 'यो माध्यम अटोक्लेभ नगर्नुहोस् — बिस्तारै हल्लाउँदै नभुकेसम्म तताउनुहोस्, त्यसपछि तुरुन्तै आगोबाट हटाउनुहोस्।',
+    tl: 'HUWAG I-AUTOCLAVE ang medium na ito — initin nang may mahinang paghahalo hanggang magsimulang kumulo, pagkatapos ay agad na alisin mula sa init.',
+    rw: 'NTUKORE AUTOCLAVE kuri iyi media — shyuha ukayiviringita buhoro kugeza itangira gutuma, noneho ibike kuri moteri vuba.',
+    rn: 'NTUKORE AUTOCLAVE kuri iyi media — shyuha ukayiviringita buhoro kugeza itangira gutuma, noneho ibike kuri moteri vuba.',
+    ny: 'MUSAGWIRITSE NTCHITO AUTOCLAVE pa media iyi — fotchani pang\'ono-pang\'ono mpaka iyambe kupya, kenako chotserani pa moto mwachangu.',
+  },
+  'inoculateIncubate': {
+    en: 'Inoculate samples and incubate at the appropriate temperature and atmosphere for the target organisms.',
+    fr: 'Inoculer les échantillons et incuber à la température et l\'atmosphère appropriées pour les organismes cibles.',
+    es: 'Inocular las muestras e incubar a la temperatura y atmósfera apropiadas para los organismos objetivo.',
+    pt: 'Inocular as amostras e incubar à temperatura e atmosfera adequadas para os organismos alvo.',
+    it: 'Inoculare i campioni e incubare alla temperatura e atmosfera appropriate per gli organismi target.',
+    ar: 'لقّح العينات واحتضنها عند درجة الحرارة والغلاف الجوي المناسبين للكائنات المستهدفة.',
+    zh: '接种样品，并在适合目标微生物的温度和气氛下孵育。',
+    sw: 'Chanjo sampuli na ziweke kwenye joto sahihi na hewa inayofaa kwa viumbe vinavyolengwa.',
+    am: 'ናሙናዎቹን ያስተክሉ እና ለዒላማ ፍጥረቶቹ ተስማሚ በሆነ ሙቀት እና ከባቢ ውስጥ ያቀፏቸው።',
+    hi: 'नमूने इनोकुलेट करें और लक्षित जीवाणुओं के लिए उपयुक्त तापमान और वायुमंडल में इनक्यूबेट करें।',
+    bn: 'নমুনা ইনোকুলেট করুন এবং লক্ষ্য জীবাণুর জন্য উপযুক্ত তাপমাত্রা এবং পরিবেশে ইনকিউবেট করুন।',
+    id: 'Inokulasi sampel dan inkubasi pada suhu dan atmosfer yang sesuai untuk organisme target.',
+    uk: 'Інокулюйте зразки та інкубуйте при відповідній температурі та атмосфері для цільових мікроорганізмів.',
+    ha: 'Shigar da samfurin a cikin kafofin kuma sa su yi zafi a yanayin zafin da ya dace da kwayoyin da ake bukata.',
+    yo: 'Ṣe inoculate awọn apẹẹrẹ ki o si gbe sinu incubator ni iwọn otutu ati oju-aye to dara fun awọn ohun alumọni ibi-afẹde.',
+    ln: 'Kotia biloko na likolo mpe koboma na obuteli ya solosolo mpe molimo oyo ebongi mpo na bimikrobe ya boloko.',
+    mg: 'Ampidino ny samy ary asio ao amin\'ny hafana sy atmosphère mety ho an\'ny zavamiaina tafina.',
+    ne: 'नमुनाहरू इनोकुलेट गर्नुहोस् र लक्ष्य जीवाणुहरूका लागि उचित तापमान र वातावरणमा इनक्युबेट गर्नुहोस्।',
+    tl: 'I-inoculate ang mga sample at i-incubate sa angkop na temperatura at kapaligiran para sa mga target na organismo.',
+    rw: 'Injiza ibicupa by\'amasomo muri media hanyuma ubike ku bushyuhe bwiza no mu kirere gikwiye kuri organisime ziteganiwe.',
+    rn: 'Injiza ibicupa by\'amasomo muri media hanyuma ubike ku bushyuhe bwiza no mu kirere gikwiye kuri organisime ziteganiwe.',
+    ny: 'Lowetsani zitsanzo ndi kuzisiya pa kutentha kwoyenera ndi mpweya woyenera kwa zamoyo zomwe mungafufuze.',
+  },
+};
+
+// ── State ──────────────────────────────────────────────────────────────────
+let selectedLang = null;
+let selectedMedia = null;
+let activeCategory = 'all';
+
+// ── Build picker ───────────────────────────────────────────────────────────
+function buildPicker(){
+  const grid=document.getElementById('langGrid');
+  LANGS.forEach(l=>{
+    const btn=document.createElement('button');
+    btn.className='lang-btn';btn.id='lb-'+l.code;
+    btn.innerHTML=`<span class="lang-dot"></span>${l.native}`;
+    btn.onclick=()=>selectLang(l.code);
+    grid.appendChild(btn);
+  });
+}
+
+function selectLang(code){
+  selectedLang=code;
+  LANGS.forEach(l=>{const b=document.getElementById('lb-'+l.code);if(b)b.classList.toggle('selected',l.code===code);});
+  const lang=LANGS.find(l=>l.code===code);
+  const u=UI[code]||UI.en;
+  document.documentElement.lang=code;
+  document.documentElement.dir=lang.dir;
+
+  // Apply all UI strings
+  document.getElementById('langDisplay').innerHTML=`${lang.native} <span style="opacity:.7;font-size:13px;margin-left:8px">${lang.english||''}</span>`;
+  setText('btnChange', u.change);
+  setText('step1Title', u.step1Title);
+  setText('step1Sub', u.step1Sub);
+  setText('step2Title', u.step2Title);
+  setText('step2Sub', u.step2Sub);
+  setText('btnCalcText', u.calc);
+  setText('ingrHeading', u.ingrHeading);
+  setText('thIngredient', u.thIngredient);
+  setText('thAmount', u.thAmount);
+  setText('thConc', u.thConc);
+  setText('thNotes', u.thNotes);
+  setText('propertiesHeading', u.propertiesHeading);
+  setText('stepsHeading', u.stepsHeading);
+
+  // Volume presets
+  const presetsDiv=document.getElementById('volumePresets');
+  presetsDiv.innerHTML='';
+  ['100','250','500','1000','2000'].forEach(v=>{
+    const btn=document.createElement('button');
+    btn.className='preset-btn';
+    btn.textContent=parseInt(v)<1000?v+' mL':(parseInt(v)/1000)+' L';
+    btn.onclick=()=>{document.getElementById('volumeInput').value=v;};
+    presetsDiv.appendChild(btn);
+  });
+
+  buildCategoryTabs();
+  buildMediaGrid();
+  document.getElementById('appSection').classList.add('visible');
+  document.getElementById('appSection').scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+function changeLang(){
+  document.getElementById('appSection').classList.remove('visible');
+  document.querySelector('.lang-section').scrollIntoView({behavior:'smooth',block:'start'});
+  LANGS.forEach(l=>{const b=document.getElementById('lb-'+l.code);if(b)b.classList.remove('selected');});
+  selectedLang=null;selectedMedia=null;
+}
+
+function setText(id,text){const el=document.getElementById(id);if(el&&text!==undefined)el.textContent=text;}
+
+function buildCategoryTabs(){
+  const u=UI[selectedLang]||UI.en;
+  const container=document.getElementById('categoryTabs');
+  container.innerHTML='';
+  const allBtn=document.createElement('button');
+  allBtn.className='cat-tab'+(activeCategory==='all'?' active':'');
+  allBtn.textContent=u.all||'All';
+  allBtn.onclick=()=>{activeCategory='all';buildCategoryTabs();buildMediaGrid();};
+  container.appendChild(allBtn);
+  ['general','selective','enrichment','specialized'].forEach(cat=>{
+    const btn=document.createElement('button');
+    btn.className='cat-tab'+(activeCategory===cat?' active':'');
+    btn.textContent=(CATS[cat][selectedLang]||CATS[cat].en);
+    btn.onclick=()=>{activeCategory=cat;buildCategoryTabs();buildMediaGrid();};
+    container.appendChild(btn);
+  });
+}
+
+function buildMediaGrid(){
+  const grid=document.getElementById('mediaGrid');
+  grid.innerHTML='';
+  const filtered=activeCategory==='all'?MEDIA:MEDIA.filter(m=>m.cat===activeCategory);
+  filtered.forEach(m=>{
+    const btn=document.createElement('button');
+    btn.className='media-btn'+(selectedMedia&&selectedMedia.id===m.id?' selected':'');
+    btn.innerHTML=`<span class="media-btn-name">${m.name}</span><span class="media-btn-abbr">${m.abbr}</span>`;
+    btn.onclick=()=>{selectedMedia=m;buildMediaGrid();document.getElementById('results').classList.remove('visible');};
+    grid.appendChild(btn);
+  });
+}
+
+// ── Calculate ──────────────────────────────────────────────────────────────
+function calculate(){
+  const u=UI[selectedLang]||UI.en;
+  const errBox=document.getElementById('errorBox');
+  errBox.classList.remove('visible');
+  if(!selectedMedia){errBox.textContent=u.errNoMedia;errBox.classList.add('visible');return;}
+  const vol=parseFloat(document.getElementById('volumeInput').value);
+  if(!vol||vol<10||vol>100000){errBox.textContent=u.errNoVolume;errBox.classList.add('visible');return;}  const factor=vol/1000;
+
+  // Banner
+  document.getElementById('resultMediaName').textContent=selectedMedia.name;
+  document.getElementById('resultMeta').textContent=`${vol} mL · ${selectedMedia.abbr}`;
+  setText('btnPrint','🖨️ '+(u.printBtn||'Print'));
+
+  // Warnings/notes
+  const notesArea=document.getElementById('notesArea');
+  notesArea.innerHTML='';
+  (selectedMedia.warnings||[]).forEach(w=>{
+    const div=document.createElement('div');
+    div.className=`note-box ${w.type}`;
+    const label = w.type==='danger'?(u.warningDanger||'🚨 Critical Warning'):w.type==='warning'?(u.warningWarn||'⚠️ Important'):(u.warningInfo||'ℹ️ Note');
+    div.innerHTML=`<span class="note-icon">${w.type==='danger'?'🚨':w.type==='warning'?'⚠️':'ℹ️'}</span><span>${w.text}</span>`;
+    notesArea.appendChild(div);
+  });
+
+  // Ingredients
+  const tbody=document.getElementById('ingredientsTbody');
+  tbody.innerHTML='';
+  selectedMedia.ingredients.forEach(ing=>{
+    const amtG=(ing.gL*factor).toFixed(ing.gL*factor<0.1?4:ing.gL*factor<1?3:2);
+    const tr=document.createElement('tr');
+    tr.innerHTML=`<td><span class="ing-name">${ing.n}</span></td><td><span class="ing-weight">${amtG} g</span></td><td><span class="ing-conc">${ing.gL} g/L</span></td><td><span class="ing-conc">${ing.note}</span></td>`;
+    tbody.appendChild(tr);
+  });
+
+  // Properties
+  const propsRow=document.getElementById('propertiesRow');
+  propsRow.innerHTML='';
+  const props=[
+    {label:u.phLabel||'Final pH',value:selectedMedia.pH},
+    {label:u.sterilLabel||'Sterilization',value:selectedMedia.sterilization},
+    {label:u.storageLabel||'Storage',value:selectedMedia.storage},
+    {label:u.selectLabel||'Selectivity',value:selectedMedia.selectivity},
+    {label:u.usesLabel||'Uses',value:selectedMedia.uses},
+  ];
+  props.forEach(p=>{
+    const div=document.createElement('div');
+    div.className='info-item';
+    div.innerHTML=`<div class="info-item-label">${p.label}</div><div class="info-item-value" style="font-size:13px;font-weight:400;color:var(--ink-2)">${p.value}</div>`;
+    propsRow.appendChild(div);
+  });
+
+  // Steps — translate using STEPS lookup table
+  const stepsList=document.getElementById('stepsList');
+  stepsList.innerHTML='';
+
+  // Map standard step patterns to STEPS keys
+  function translateStep(stepEn) {
+    // Try direct match in STEPS
+    for (const [key, langs] of Object.entries(STEPS)) {
+      if (langs.en && stepEn.includes(langs.en.substring(0, 30))) {
+        return langs[selectedLang] || langs.en || stepEn;
+      }
+    }
+    // Try partial key matches for composite steps
+    if (stepEn.toLowerCase().includes('weigh')) return STEPS.weigh[selectedLang] || STEPS.weigh.en;
+    if (stepEn.toLowerCase().includes('autoclave') && stepEn.toLowerCase().includes('do not')) return STEPS.doNotAutoclave[selectedLang] || STEPS.doNotAutoclave.en;
+    if (stepEn.toLowerCase().includes('autoclave')) return STEPS.autoclave[selectedLang] || STEPS.autoclave.en;
+    if (stepEn.toLowerCase().includes('final volume') || stepEn.toLowerCase().includes('bring to')) return STEPS.finalVolume[selectedLang] || STEPS.finalVolume.en;
+    if (stepEn.toLowerCase().includes('adjust ph') || stepEn.toLowerCase().includes('adjust the ph')) return STEPS.adjustpH[selectedLang] || STEPS.adjustpH.en;
+    if (stepEn.toLowerCase().includes('pour') && stepEn.toLowerCase().includes('petri')) return STEPS.coolAndPour[selectedLang] || STEPS.coolAndPour.en;
+    if (stepEn.toLowerCase().includes('inoculate')) return STEPS.inoculateIncubate[selectedLang] || STEPS.inoculateIncubate.en;
+    if (stepEn.toLowerCase().includes('dissolve') || (stepEn.toLowerCase().includes('90%') && stepEn.toLowerCase().includes('distilled'))) return STEPS.dissolve90[selectedLang] || STEPS.dissolve90.en;
+    // Return English if no translation found
+    return stepEn;
+  }
+
+  selectedMedia.steps.forEach((step, i) => {
+    const stepText = translateStep(step);
+    const li = document.createElement('li');
+    li.className = 'step-item';
+    li.innerHTML = `<span class="step-circle">${i+1}</span><span class="step-text">${stepText}</span>`;
+    stepsList.appendChild(li);
+  });
+
+  document.getElementById('results').classList.add('visible');
+  document.getElementById('results').scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+buildPicker();
+</script>
+</body>
+</html>
